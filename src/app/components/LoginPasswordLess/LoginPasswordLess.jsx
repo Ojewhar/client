@@ -7,16 +7,17 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { ImWarning } from "react-icons/im";
 import { sendLoginLink } from "@/app/admin/api-requests/auth";
+const url = process.env.LIVE_BACKEND_URL;
 
 const LoginPasswordLess = () => {
   const [passlessMail, setpasslessMail] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
   //const isToken = useSelector((state) => state.loginAccessToken.token ) ;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setIsLoading(true);
       const result = await sendLoginLink(passlessMail);
