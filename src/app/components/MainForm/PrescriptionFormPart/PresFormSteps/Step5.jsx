@@ -72,7 +72,7 @@ const Step5 = ({ nextStep, prevStep }) => {
             <Image
               width={93}
               height={93}
-              alt="logo"
+              alt="logo2"
               src={logo}
               className="mx-auto mt-4"
             />
@@ -229,6 +229,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                 <div className="flex justify-center items-center my-6">
                   <Image
                     className="w-[330px]"
+                    alt="medicare"
                     src={require("../../../../../../public/images/medicare.png")}
                   />
                 </div>
@@ -280,6 +281,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   <Image
                     src={require("../../../../../../public/images/info-sky.png")}
                     className="w-6 h-6"
+                    alt="info-sky"
                   />
                   <div className=" text-[12px] ">
                     <p>For more information, please see:</p>
