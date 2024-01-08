@@ -238,7 +238,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                     onClick={() => setMedicare(false)}
                     className="underline cursor-pointer text-uptext font-bold"
                   >
-                    I don't have Medicare
+                    I dont have Medicare
                   </span>
                 </div>
               </div>
