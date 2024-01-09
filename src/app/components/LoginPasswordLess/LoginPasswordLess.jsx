@@ -21,7 +21,8 @@ const LoginPasswordLess = () => {
     try {
       setIsLoading(true);
       const result = await sendLoginLink(passlessMail);
-      toast.success(result.data.message);
+      //toast.success(result.data.message);
+      console.log(result);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(true);
