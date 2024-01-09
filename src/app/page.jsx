@@ -7,21 +7,11 @@ import img3 from "../../public/images/MedCert.png";
 import GenCons from "../../public/images/GenCons.png";
 import { LinkButton } from "@/app/components/buttons/LinkButton";
 import ProfileSec from "@/app/components/HomePage/ProfileSec";
-import { useSelector } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loading from "./components/Loader/Loading";
-import axios from "axios";
-import { BASE_URL } from "./admin/url-manager/url-manager";
 import { getFormOne } from "./admin/api-requests/form";
-import { access_token } from "./admin/access-token/access_token";
-
-// export const metadata = {
-//   title: "Telehealth Consultation Form | updoc ",
-//   description: "Telehealth Consultation Form | updoc",
-// };
 
 export default function Home() {
   //const formsData = useSelector((state) => state.certificate.allfields);

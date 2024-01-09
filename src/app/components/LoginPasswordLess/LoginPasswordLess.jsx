@@ -7,7 +7,6 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import { ImWarning } from "react-icons/im";
 import { sendLoginLink } from "@/app/admin/api-requests/auth";
-const url = process.env.LIVE_BACKEND_URL;
 
 const LoginPasswordLess = () => {
   const [passlessMail, setpasslessMail] = useState(null);
@@ -21,17 +20,15 @@ const LoginPasswordLess = () => {
     try {
       setIsLoading(true);
       const result = await sendLoginLink(passlessMail);
-      //toast.success(result.data.message);
-      console.log(result);
+      toast.success(result.data.message);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(true);
-      console.log(error);
       if (error.response.data === "You are not registerd") {
         setIsError(true);
         toast.error(error.response.data);
       } else {
-        toast.error(error.response.data);
+        console.log(error);
       }
       setIsLoading(false);
     }
