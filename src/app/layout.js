@@ -1,11 +1,11 @@
-import { Space_Grotesk } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "./ReduxProvider";
 import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
-const space = Space_Grotesk({
-  subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600", "700"],
+const space = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
 });
 
 export const metadata = {
