@@ -12,12 +12,15 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loading from "./components/Loader/Loading";
 import { getFormOne } from "./admin/api-requests/form";
+import { FaRegTimesCircle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function Home() {
   //const formsData = useSelector((state) => state.certificate.allfields);
   const [loading, setLoading] = useState(false);
   const [cookieInfo, setCookieInfo] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+  const ExpDate = userInfo?.createdAt.split("T")[0];
 
   // get access token from cookie
   const router = useRouter();
@@ -45,6 +48,13 @@ export default function Home() {
       setUserInfo(res.data);
       setLoading(false);
     } catch (error) {
+      if (error) {
+        Cookies.remove("access_token");
+        setTimeout(() => {
+          window.location.reload("/");
+        }, [1000]);
+      }
+      console.log(error);
       setLoading(false);
     }
   }
@@ -94,14 +104,14 @@ export default function Home() {
                         {loading ? (
                           <Link
                             href="/"
-                            className="py-4 md:inline-block block text-center px-20 bg-uorange hover:opacity-85 transition-all text-white font-semibold rounded"
+                            className="py-4 md:inline-block block text-center px-20 bg-white hover:opacity-85 transition-all text-ublack font-semibold rounded"
                           >
                             Loading....
                           </Link>
                         ) : (
                           <Link
                             href="/"
-                            className="py-4 px-20 md:inline-block block text-center bg-uorange hover:opacity-85 transition-all text-white font-semibold rounded"
+                            className="py-4 px-20 md:inline-block block text-center bg-white hover:opacity-85 transition-all text-ublack font-semibold rounded"
                           >
                             {userInfo ? "Start trial" : "Upgrade Now"}
                           </Link>
@@ -126,7 +136,7 @@ export default function Home() {
                     </h3>
 
                     <div className="md:grid grid-cols-2 gap-5 py-6">
-                      <div className="p-5 bg-white border border-slate-300 rounded">
+                      <div className="p-5 flex justify-between flex-col h-[300px] bg-white border border-slate-300 rounded">
                         <h3 className="font-semibold text-xl text-ublack">
                           Medical Certificate
                         </h3>
@@ -147,11 +157,11 @@ export default function Home() {
                         <LinkButton
                           href="/form"
                           title="Request A Consultation Now"
-                          className="bg-uorangedark text-white rounded"
+                          className="bg-uorangedark transition-all opacity-90 text-white rounded"
                         />
                       </div>
 
-                      <div className="p-5 bg-white border border-slate-300 rounded mt-6 md:mt-0">
+                      <div className="p-5 bg-white flex justify-between flex-col h-[300px] border border-slate-300 rounded mt-6 md:mt-0">
                         <h3 className="font-semibold text-xl text-ublack ">
                           Telehealth Consultation
                         </h3>
@@ -171,32 +181,42 @@ export default function Home() {
                         <LinkButton
                           href="/request-telehealth-consultation"
                           title="Request A Call Now"
-                          className=" bg-uorangedark text-white rounded"
+                          className=" bg-uorangedark transition-all opacity-90 text-white rounded"
                         />
                       </div>
+                    </div>
 
-                      <div className="p-5 bg-white border border-slate-300 rounded mt-6 md:mt-0">
-                        <h3 className="font-semibold text-xl text-ublack ">
-                          Medical Certificate
-                        </h3>
-                        <div className="grid grid-cols-3 py-6">
-                          <p className="col-span-2 text-sm  text-ublack opacity-70">
-                            The easiest way to speak to a registered medical
-                            practitioner for advice or a prescription.
-                          </p>
-                          <Image
-                            className="col-span-1 mx-auto"
-                            src={img3}
-                            width={70}
-                            alt="image-4"
-                          />
+                    {/* past consaltation */}
+                    <div>
+                      <h3 className="font-semibold text-lg mb-3  text-ublack ">
+                        Past Consultations
+                      </h3>
+                      <div className="md:grid grid-cols-2">
+                        <div className="p-5 bg-white flex justify-between flex-col h-[300px] border border-slate-300 rounded mt-6 md:mt-0">
+                          <h3 className="font-semibold text-xl text-ublack ">
+                            Medical Certificate
+                          </h3>
+                          <h5 className="text-md font-semibold text-uorange">
+                            {ExpDate}
+                          </h5>
+                          <div className="grid grid-cols-3 py-6">
+                            <p className="col-span-2 text-sm  text-ublack opacity-70">
+                              The easiest way to speak to a registered medical
+                              practitioner for advice or a prescription.
+                            </p>
+                            <Image
+                              className="col-span-1 mx-auto"
+                              src={img3}
+                              width={70}
+                              alt="image-4"
+                            />
+                          </div>
+
+                          <button className="px-3 flex gap-2 items-center  py-2 text-[12px] w-1/3 outline-none bg-gray-400/65 text-white rounded-md">
+                            <FaRegTimesCircle className="text-white text-lg" />
+                            <span>Rejected</span>
+                          </button>
                         </div>
-
-                        <LinkButton
-                          href="/request-telehealth-consultation"
-                          title="Request A Call Now"
-                          className=" bg-uorangedark text-white rounded"
-                        />
                       </div>
                     </div>
                   </div>
