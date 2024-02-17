@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "@/public/images/logo.png";
 import bannerImg from "@/public/images/subscription-banner-main-image.png";
@@ -8,9 +8,27 @@ import GenCons from "@/public/images/GenCons.png";
 import { LinkButton } from "@/app/components/buttons/LinkButton";
 import { FaRegTimesCircle } from "react-icons/fa";
 import ProfileSec from "./ProfileSec";
+import { useSelector } from "react-redux";
+import ConsultationForm from "./ConsultationForm/ConsultationForm";
+import { getASingleUser } from "@/app/Services/api-requests/auth";
 
 const IsItPatient = () => {
-  const userInfo = false;
+  const [userInfo, setUserInfo] = useState(null);
+  useEffect(() => {
+    async function getData() {
+      try {
+        const res = await getASingleUser();
+        console.log(res);
+        setUserInfo(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+  }, []);
+
+  console.log(userInfo);
+
   return (
     <section className="p-5">
       <div>
@@ -30,14 +48,17 @@ const IsItPatient = () => {
                 Unlock unlimited consultation requests for just $19.95/month.
               </p>
 
-              <div className="py-3">
-                <Link
-                  href="/"
-                  className="py-4 px-20 md:inline-block block text-center bg-white hover:opacity-85 transition-all text-ublack font-semibold rounded"
-                >
-                  {userInfo ? "Start trial" : "Upgrade Now"}
-                </Link>
-              </div>
+              {userInfo?.forms.length < 1 && (
+                <div className="py-3">
+                  <Link
+                    href="/form"
+                    className="py-4 px-20 md:inline-block block text-center bg-white hover:opacity-85 transition-all text-ublack font-semibold rounded"
+                  >
+                    Start Now
+                  </Link>
+                </div>
+              )}
+
               <p className="text-sm pt-2">
                 Unlock unlimited consultation requests for just $19.95/month.
               </p>
@@ -45,7 +66,7 @@ const IsItPatient = () => {
           </div>
         </div>
 
-        <div className="md:grid grid-cols-3 gap-5 py-4">
+        <div className="md:grid grid-cols-3 gap-5 py-4 mt-8">
           <div className="col-span-2">
             <h2 className="font-semibold text-2xl text-ublack">
               Consultations
@@ -56,86 +77,19 @@ const IsItPatient = () => {
             </h3>
 
             <div className="md:grid grid-cols-2 gap-5 py-6">
-              <div className="p-5 flex justify-between flex-col h-[300px] bg-white border border-slate-300 rounded">
-                <h3 className="font-semibold text-xl text-ublack">
-                  Medical Certificate
-                </h3>
-                <div className="grid grid-cols-3 py-6">
-                  <p className="col-span-2 text-sm text-ublack opacity-70">
-                    Request a consultation with a Partner Doctor who can provide
-                    outcomes including: medical certificates, sick notes,
-                    doctors notes.
-                  </p>
-                  <Image
-                    className="col-span-1 mx-auto"
-                    src={img3}
-                    width={70}
-                    alt="image-3"
-                  />
+              {userInfo ? (
+                userInfo.forms.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <ConsultationForm item={item} />
+                    </div>
+                  );
+                })
+              ) : (
+                <div className=" h-[200px] flex justify-center items-center">
+                  <p className="font-bold text-uorange">Loading........</p>
                 </div>
-
-                <LinkButton
-                  href="/form"
-                  title="Request A Consultation Now"
-                  className="bg-uorangedark transition-all opacity-90 text-white rounded"
-                />
-              </div>
-
-              <div className="p-5 bg-white flex justify-between flex-col h-[300px] border border-slate-300 rounded mt-6 md:mt-0">
-                <h3 className="font-semibold text-xl text-ublack ">
-                  Telehealth Consultation
-                </h3>
-                <div className="grid grid-cols-3 py-6">
-                  <p className="col-span-2 text-sm  text-ublack opacity-70">
-                    The easiest way to speak to a registered medical
-                    practitioner for advice or a prescription.
-                  </p>
-                  <Image
-                    className="col-span-1 mx-auto"
-                    src={GenCons}
-                    width={70}
-                    alt="image-4"
-                  />
-                </div>
-
-                <LinkButton
-                  href="/request-telehealth-consultation"
-                  title="Request A Call Now"
-                  className=" bg-uorangedark transition-all opacity-90 text-white rounded"
-                />
-              </div>
-            </div>
-
-            {/* past consaltation */}
-            <div>
-              <h3 className="font-semibold text-lg mb-3  text-ublack ">
-                Past Consultations
-              </h3>
-              <div className="md:grid grid-cols-2">
-                <div className="p-5 bg-white flex justify-between flex-col h-[300px] border border-slate-300 rounded mt-6 md:mt-0">
-                  <h3 className="font-semibold text-xl text-ublack ">
-                    Medical Certificate
-                  </h3>
-                  <h5 className="text-md font-semibold text-uorange">Date</h5>
-                  <div className="grid grid-cols-3 py-6">
-                    <p className="col-span-2 text-sm  text-ublack opacity-70">
-                      The easiest way to speak to a registered medical
-                      practitioner for advice or a prescription.
-                    </p>
-                    <Image
-                      className="col-span-1 mx-auto"
-                      src={img3}
-                      width={70}
-                      alt="image-4"
-                    />
-                  </div>
-
-                  <button className="px-3 flex gap-2 items-center  py-2 text-[12px] w-1/3 outline-none bg-gray-400/65 text-white rounded-md">
-                    <FaRegTimesCircle className="text-white text-lg" />
-                    <span>Rejected</span>
-                  </button>
-                </div>
-              </div>
+              )}
             </div>
           </div>
 

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const ProfileSec = ({ userInfo }) => {
+  console.log(userInfo);
   return (
     <>
       <h2 className="font-semibold text-2xl text-ublack">Profile</h2>
@@ -16,12 +17,12 @@ const ProfileSec = ({ userInfo }) => {
         {/* Personal details section in profile */}
 
         <h3 className="font-semibold text-xl text-ublack">Personal details</h3>
-        <div className="p-5 bg-white border border-slate-300 rounded mt-5">
+        <div className="p-5 bg-white border border-slate-300 rounded mt-5 shadow-md">
           <div className="flex items-center mb-3">
             {userInfo ? (
               <>
                 <AiOutlineUser className=" text-uorangedark text-xl font-semibold mr-3" />
-                <p>{userInfo.firstFormFName}</p>
+                <p>{userInfo?.name}</p>
               </>
             ) : (
               <>
@@ -35,29 +36,12 @@ const ProfileSec = ({ userInfo }) => {
               </>
             )}
           </div>
-          <div className="flex items-center mb-3">
-            {userInfo ? (
-              <>
-                <BsCalendar2Event className=" text-uorangedark text-xl font-semibold mr-3" />
-                <p>{userInfo.dateOfBirth}</p>
-              </>
-            ) : (
-              <>
-                <div className="animate-pulse flex gap-3">
-                  <div className="rounded-full bg-slate-200 h-6 w-6"></div>
-                  <div>
-                    <div className="h-2 w-[100px] bg-slate-200 rounded"></div>
-                    <div className="h-2 w-[100px] bg-slate-200 rounded"></div>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+
           <div className="flex items-center mb-3">
             {userInfo ? (
               <>
                 <BsEnvelope className=" text-uorangedark text-xl font-semibold mr-3" />
-                <p>{userInfo.firstFormEmail}</p>
+                <p>{userInfo?.email}</p>
               </>
             ) : (
               <>
@@ -75,7 +59,7 @@ const ProfileSec = ({ userInfo }) => {
             {userInfo ? (
               <>
                 <BsTelephone className=" text-uorangedark text-xl font-semibold mr-3" />
-                <p>{userInfo.firstFormMobile}</p>
+                <p>{userInfo?.mobile}</p>
               </>
             ) : (
               <>
@@ -95,8 +79,8 @@ const ProfileSec = ({ userInfo }) => {
               <>
                 <CiLocationOn className=" text-uorangedark text-xl font-semibold mr-3" />
                 <p>
-                  {userInfo.firstFormPost}, {userInfo.firstFormState},{" "}
-                  {userInfo.firstFormStreet}, {userInfo.firstFormSuburb}
+                  {userInfo?.firstFormPost}, {userInfo?.firstFormState},{" "}
+                  {userInfo?.firstFormStreet}, {userInfo?.firstFormSuburb}
                 </p>
               </>
             ) : (
@@ -116,7 +100,7 @@ const ProfileSec = ({ userInfo }) => {
         {/* Payment  details section in profile */}
 
         <h3 className="font-semibold text-xl text-ublack mt-6">Payment</h3>
-        <div className="p-5 bg-white border border-slate-300 rounded mt-5">
+        <div className="p-5 bg-white border border-slate-300 rounded mt-5 shadow-md">
           <Button
             type="button"
             className="bg-uorangedark w-full text-white rounded"
@@ -130,11 +114,11 @@ const ProfileSec = ({ userInfo }) => {
         <h3 className="font-semibold text-xl text-ublack mt-6">
           ID Verification
         </h3>
-        <div className="p-5 bg-white border border-slate-300 rounded mt-5">
+        <div className="p-5 bg-white border border-slate-300 rounded shadow-md mt-5">
           {/* if any component or text that will placed on here  */}
           <Link
             href="https://digitalid.com/products/idv/start"
-            className={`relative w-full font-semibold my-3 block py-3 bg-blue-700 text-white text-xl rounded text-center shadow-sm`}
+            className={`relative w-full font-semibold py-2 block  bg-blue-700 text-white text-xl rounded text-center shadow-sm`}
           >
             <span className="flex justify-center items-center">
               <Image src={idicon} alt="idicon" />

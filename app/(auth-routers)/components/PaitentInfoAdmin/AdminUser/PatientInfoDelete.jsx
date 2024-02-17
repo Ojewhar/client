@@ -17,7 +17,10 @@ const PatientInfoDelete = ({ showModel, setShowModel, data }) => {
             !
           </div>
           <div className="mt-8 mb-4 text-center">
-            <Button className="text-white px-8 rounded-lg bg-red-600 hover:bg-red-500">
+            <Button
+              type="button"
+              className="text-white px-8 rounded-lg bg-red-600 hover:bg-red-500"
+            >
               Delete
             </Button>
           </div>

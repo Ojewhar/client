@@ -53,7 +53,7 @@ const Page = () => {
       }
       setLoading(false);
     } catch (error) {
-      toast.error("Something is wrong");
+      toast.error(error?.response.data.message);
       console.log(error);
       setLoading(false);
     }
@@ -114,6 +114,11 @@ const Page = () => {
                     )}
                   </span>
                 </div>
+                <small>
+                  <Link className="underline" href="/login-passwordless">
+                    Login as a patient
+                  </Link>
+                </small>
               </div>
               {/**form body end**/}
               <div className="flex justify-center items-center">

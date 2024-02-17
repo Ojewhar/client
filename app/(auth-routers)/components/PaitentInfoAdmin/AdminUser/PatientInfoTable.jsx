@@ -18,7 +18,7 @@ import {
   Trash2,
 } from "lucide-react";
 import axios from "axios";
-import Loader from "@/app/Shared/Loader";
+import Loader, { LoaderHash } from "@/app/Shared/Loader";
 import { pageItems } from "@/app/data/PageItem";
 import { BASE_URL } from "@/app/Services/config/url-manager";
 import PatientInfoDelete from "./PatientInfoDelete";
@@ -117,183 +117,175 @@ const PatientInfoTable = () => {
   }
   return (
     <section>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div>
-          <div className="flex justify-end items-center gap-5 mb-4"></div>
-          <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
-            <h1 className="font-semibold text-xl mb-2 md:mb-0">
-              Registered Patientes
-            </h1>
-            <div className="mb-2 md:mb-0 flex gap-1 justify-end items-center">
-              <div className=" relative  ">
-                <Input
-                  type="search"
-                  placeholder="Rechercher..."
-                  className="pl-10 pr-4 outline-none"
-                  onChange={(e) => filterData(e.target.value)}
-                />
-                <Image
-                  src={Search}
-                  alt="Search"
-                  className=" absolute top-1/2 left-4 -translate-x-2 -translate-y-1/2"
-                />
-              </div>
-              <FilterTableData />
+      <div>
+        <div className="flex justify-end items-center gap-5 mb-4"></div>
+        <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
+          <h1 className="font-semibold text-xl mb-2 md:mb-0">
+            Registered Patientes
+          </h1>
+          <div className="mb-2 md:mb-0 flex gap-1 justify-end items-center">
+            <div className=" relative  ">
+              <Input
+                type="search"
+                placeholder="Rechercher..."
+                className="pl-10 pr-4 outline-none"
+                onChange={(e) => filterData(e.target.value)}
+              />
+              <Image
+                src={Search}
+                alt="Search"
+                className=" absolute top-1/2 left-4 -translate-x-2 -translate-y-1/2"
+              />
+            </div>
+            <FilterTableData />
+          </div>
+        </div>
+
+        {currentData.length === 0 ? (
+          <LoaderHash />
+        ) : (
+          <div className="pt-5 rounded-br-xl rounded-bl-xl bg-white dark:bg-gray-700 dark:text-gray-400 p-5">
+            <div className="relative overflow-x-auto ">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs font-normal border-t border-b bg-white  dark:border-white text-gray-700 uppercase   dark:bg-gray-800 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex gap-1 items-center">
+                        Name
+                        <Image
+                          src={sort}
+                          alt="sort"
+                          className=" cursor-pointer"
+                          onClick={() => makeSortArr("firstFormFName")}
+                        />
+                      </div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex gap-1 items-center">
+                        Email
+                        <Image
+                          src={sort}
+                          alt="sort"
+                          className=" cursor-pointer"
+                          onClick={() => makeSortArr("title")}
+                        />
+                      </div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex gap-1 items-center">
+                        Phone
+                        <Image
+                          src={sort}
+                          alt="sort"
+                          className=" cursor-pointer"
+                          onClick={() => makeSortArr("price")}
+                        />
+                      </div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex gap-1 items-center">
+                        Request Data
+                        <Image
+                          src={sort}
+                          alt="sort"
+                          className=" cursor-pointer"
+                          onClick={() => makeSortArr("stock")}
+                        />
+                      </div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex gap-1 items-center">
+                        To Data
+                        <Image
+                          src={sort}
+                          alt="sort"
+                          className=" cursor-pointer"
+                          onClick={() => makeSortArr("stock")}
+                        />
+                      </div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Main Cause
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Status
+                    </th>
+                    <th scope="col" className="px-6 py-3"></th>
+                    <th scope="col" className="px-6 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentData?.map((item) => {
+                    return (
+                      <tr
+                        key={item._id}
+                        className="bg-white dark:border-b  dark:bg-gray-800 dark:border-gray-700"
+                      >
+                        <td className="px-6 py-3">
+                          {item.firstFormFName + " " + item.firstFormLName}
+                        </td>
+                        <td className="px-6 py-3">{item.firstFormEmail}</td>
+                        <td className="px-6 py-3">{item.firstFormMobile}</td>
+                        <td className="px-6 py-3">{item.firstFormEmail}</td>
+                        <td className="px-6 py-3">{item.toDate}</td>
+                        <td className="px-6 py-3">
+                          {item.switablityForCirtificate}
+                        </td>
+
+                        <td className="px-6 py-3">
+                          <button
+                            size={35}
+                            className={`${
+                              item.status === "pending"
+                                ? "text-yellow-600 bg-yellow-100"
+                                : item.status === "active"
+                                ? "text-green-600 bg-green-100"
+                                : "text-red-600 bg-green-red"
+                            }  capitalize hover:shadow-sm px-4 w-[100px] py-1 cursor-pointer p-2 rounded-lg`}
+                          >
+                            {item.status}
+                          </button>
+                        </td>
+                        <td className="px-6 py-3">
+                          <div className="flex justify-end items-center gap-1">
+                            <Edit
+                              onClick={() => editSingleData(item._id)}
+                              size={28}
+                              className=" text-yellow-600 hover:shadow-sm p-1 cursor-pointer bg-yellow-100 rounded"
+                            />
+                            <Trash2
+                              onClick={() => deleteProductData(item)}
+                              size={28}
+                              className="text-red-600 hover:shadow-sm p-1 cursor-pointer bg-red-100"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <TableFooter
+                data={data}
+                setItemPerPage={setItemPerPage}
+                pagename="factures"
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                itemsPerPage={itemsPerPage}
+              />
             </div>
           </div>
-
-          {currentData.length === 0 ? (
-            <NoCart
-              title="Aucune commande"
-              desc="Cette marque n’a encore jamais reçue de commande."
-              btntext="Commande"
-            />
-          ) : (
-            <div className="pt-5 rounded-br-xl rounded-bl-xl bg-white dark:bg-gray-700 dark:text-gray-400 p-5">
-              <div className="relative overflow-x-auto ">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs font-normal border-t border-b bg-white  dark:border-white text-gray-700 uppercase   dark:bg-gray-800 dark:text-gray-400">
-                    <tr>
-                      <th scope="col" className="px-6 py-3">
-                        <div className="flex gap-1 items-center">
-                          Name
-                          <Image
-                            src={sort}
-                            alt="sort"
-                            className=" cursor-pointer"
-                            onClick={() => makeSortArr("firstFormFName")}
-                          />
-                        </div>
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        <div className="flex gap-1 items-center">
-                          Email
-                          <Image
-                            src={sort}
-                            alt="sort"
-                            className=" cursor-pointer"
-                            onClick={() => makeSortArr("title")}
-                          />
-                        </div>
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        <div className="flex gap-1 items-center">
-                          Phone
-                          <Image
-                            src={sort}
-                            alt="sort"
-                            className=" cursor-pointer"
-                            onClick={() => makeSortArr("price")}
-                          />
-                        </div>
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        <div className="flex gap-1 items-center">
-                          Request Data
-                          <Image
-                            src={sort}
-                            alt="sort"
-                            className=" cursor-pointer"
-                            onClick={() => makeSortArr("stock")}
-                          />
-                        </div>
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        <div className="flex gap-1 items-center">
-                          To Data
-                          <Image
-                            src={sort}
-                            alt="sort"
-                            className=" cursor-pointer"
-                            onClick={() => makeSortArr("stock")}
-                          />
-                        </div>
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Main Cause
-                      </th>
-                      <th scope="col" className="px-6 py-3">
-                        Status
-                      </th>
-                      <th scope="col" className="px-6 py-3"></th>
-                      <th scope="col" className="px-6 py-3"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentData?.map((item) => {
-                      return (
-                        <tr
-                          key={item._id}
-                          className="bg-white dark:border-b  dark:bg-gray-800 dark:border-gray-700"
-                        >
-                          <td className="px-6 py-3">
-                            {item.firstFormFName + " " + item.firstFormLName}
-                          </td>
-                          <td className="px-6 py-3">{item.firstFormEmail}</td>
-                          <td className="px-6 py-3">{item.firstFormMobile}</td>
-                          <td className="px-6 py-3">{item.firstFormEmail}</td>
-                          <td className="px-6 py-3">{item.toDate}</td>
-                          <td className="px-6 py-3">
-                            {item.switablityForCirtificate}
-                          </td>
-
-                          <td className="px-6 py-3">
-                            <button
-                              size={35}
-                              className={`${
-                                item.status === "pending"
-                                  ? "text-yellow-600 bg-yellow-100"
-                                  : item.status === "active"
-                                  ? "text-green-600 bg-green-100"
-                                  : "text-red-600 bg-green-red"
-                              }  capitalize hover:shadow-sm px-4 w-[100px] py-1 cursor-pointer p-2 rounded-lg`}
-                            >
-                              {item.status}
-                            </button>
-                          </td>
-                          <td className="px-6 py-3">
-                            <div className="flex justify-end items-center gap-1">
-                              <Edit
-                                onClick={() => editSingleData(item._id)}
-                                size={28}
-                                className=" text-yellow-600 hover:shadow-sm p-1 cursor-pointer bg-yellow-100 rounded"
-                              />
-                              <Trash2
-                                onClick={() => deleteProductData(item)}
-                                size={28}
-                                className="text-red-600 hover:shadow-sm p-1 cursor-pointer bg-red-100"
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-              <div>
-                <TableFooter
-                  data={data}
-                  setItemPerPage={setItemPerPage}
-                  pagename="factures"
-                  currentPage={currentPage}
-                  onPageChange={handlePageChange}
-                  itemsPerPage={itemsPerPage}
-                />
-              </div>
-            </div>
-          )}
-          {modelType === "delete" && (
-            <PatientInfoDelete
-              showModel={showModel}
-              setShowModel={setShowModel}
-              data={selectedItem}
-            />
-          )}
-        </div>
-      )}
+        )}
+        {modelType === "delete" && (
+          <PatientInfoDelete
+            showModel={showModel}
+            setShowModel={setShowModel}
+            data={selectedItem}
+          />
+        )}
+      </div>
     </section>
   );
 };
