@@ -4,6 +4,7 @@ import { ClipboardPlus, Layout } from "lucide-react";
 import { cn } from "@/lib/utils";
 import AdminButtons from "./SideBarRouteButtons/AdminButtons";
 import LoginUserButtons from "./SideBarRouteButtons/LoginUserButtons";
+import { useSelector } from "react-redux";
 
 const SidebarItemNew = () => {
   const router = useRouter();
@@ -13,7 +14,8 @@ const SidebarItemNew = () => {
     router.push(href);
   };
 
-  const isAdmin = true;
+  const admin = useSelector((state) => state.userInfo.user);
+  const isAdmin = admin?.role;
 
   return (
     <div className="flex relative flex-col justify-between w-full h-full">
@@ -45,7 +47,7 @@ const SidebarItemNew = () => {
           </button>
 
           {
-            isAdmin ? (
+            isAdmin === "admin" ? (
               // admin patient info button
               <AdminButtons
                 handleChangeRoute={handleChangeRoute}

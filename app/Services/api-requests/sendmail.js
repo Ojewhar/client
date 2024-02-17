@@ -38,3 +38,49 @@ export const sendEmailForRecover = async (userEmail) => {
 
   return result;
 };
+
+// patient login by magic link
+export const sendLoginLink = async (passlessMail) => {
+  const result = await axios.post(`${BASE_URL}/api/mail/sendLoginLink`, {
+    email: passlessMail,
+  });
+  return result;
+};
+
+// send certificate active email
+export const sendCertificateActiveMail = async (formData) => {
+  const result = await axios.post(
+    `${BASE_URL}/api/mail/sendCertificateActiveMail`,
+    formData
+  );
+  return result;
+};
+// send certificate active email
+export const sendCertificateRejectMail = async (formData) => {
+  const access_token = accessToken();
+
+  if (access_token !== null || access_token !== undefined || access_token) {
+    const result = await axios.post(
+      `${BASE_URL}/api/mail/sendCertificateRejectMail`,
+      formData,
+      {
+        headers: {
+          access_token: access_token,
+        },
+      }
+    );
+    return result;
+  } else {
+    return "You dont have jwt";
+  }
+};
+
+// send certificate active email
+export const sendMedicaleCertificateMail = async (formData) => {
+  const result = await axios.post(
+    `${BASE_URL}/api/mail/sendMedicaleCertificateMail`,
+    formData
+  );
+  console.log(result);
+  return result;
+};

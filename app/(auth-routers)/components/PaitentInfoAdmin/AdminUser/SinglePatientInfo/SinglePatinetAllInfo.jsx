@@ -1,26 +1,54 @@
 import { acceptSinglePatientForm } from "@/app/Services/api-requests/form";
+import {
+  sendCertificateActiveMail,
+  sendCertificateRejectMail,
+} from "@/app/Services/api-requests/sendmail";
 import Loading from "@/app/components/Loader/Loading";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const SinglePatinetAllInfo = ({ data }) => {
+  const [loading, setLoading] = useState(false);
+  const [loading2, set2Loading] = useState(false);
+
   async function handleUpdatePatientFormActive() {
     try {
+      setLoading(true);
       const status = "active";
       const res = await acceptSinglePatientForm(data._id, status);
-      console.log(res);
+      if (res.data) {
+        const formData = {
+          toemail: data.firstFormEmail,
+          fullname: data.firstFormFName + data.firstFormLName,
+        };
+        await sendCertificateActiveMail(formData);
+      }
+      toast.success(res.data.message);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }
   async function handleUpdatePatientFormCancled() {
     try {
+      set2Loading(true);
       const status = "canceled";
       const res = await acceptSinglePatientForm(data._id, status);
-      console.log(res);
+      if (res.data) {
+        const formData = {
+          toemail: data.firstFormEmail,
+          fullname: data.firstFormFName + data.firstFormLName,
+        };
+        await sendCertificateRejectMail(formData);
+      }
+      toast.success(res.data.message);
+      set2Loading(false);
     } catch (error) {
       console.log(error);
+      set2Loading(false);
     }
   }
 
@@ -28,7 +56,7 @@ const SinglePatinetAllInfo = ({ data }) => {
     <section>
       {data ? (
         <div>
-          <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="bg-white rounded-lg shadow-lg p-8 border m-3">
             <div className="flex justify-between items-center mb-4">
               <div>
                 <Image
@@ -38,22 +66,33 @@ const SinglePatinetAllInfo = ({ data }) => {
                   height={100}
                 />
                 <h1 className="text-xl font-bold">Patient Information</h1>
+                <p className="font-semibold">
+                  Payment Status :{" "}
+                  {data?.payment?.payment_status === "unpaid" ||
+                  data?.payment?.payment_status === undefined ? (
+                    <span className="text-red-700 font-bold">Unpaid</span>
+                  ) : (
+                    <span className="text-green-700 font-bold">Paid</span>
+                  )}
+                </p>
               </div>
 
               <div className="flex justify-center items-center gap-3">
                 <button
+                  disabled={data?.status === "active" ? true : false}
                   type="button"
                   onClick={handleUpdatePatientFormActive}
-                  className="px-8 py-2 hover:bg-opacity-75 transition-all bg-green-600 text-white rounded"
+                  className="px-6 py-1.5 hover:bg-opacity-75 transition-all bg-green-600 text-white rounded-lg"
                 >
-                  Accept
+                  {loading ? "Accepting..." : "Accept"}
                 </button>
                 <button
+                  disabled={data?.status === "canceled" ? true : false}
                   onClick={handleUpdatePatientFormCancled}
                   type="button"
-                  className="px-8 py-2 hover:bg-opacity-75 transition-all bg-red-500 text-white rounded"
+                  className="px-6 py-1.5 hover:bg-opacity-75 transition-all bg-red-500 text-white rounded-lg"
                 >
-                  Reject
+                  {loading2 ? "Rejecting..." : "Reject"}
                 </button>
               </div>
             </div>
@@ -114,11 +153,11 @@ const SinglePatinetAllInfo = ({ data }) => {
           <div className="mt-4 text-center flex justify-center items-center gap-3">
             <Link
               href="/dashboard/patientinfo"
-              className="px-8 py-2 hover:bg-opacity-75 transition-all bg-uptext text-white rounded"
+              className="px-8 py-2 hover:bg-opacity-75 transition-all bg-uptext text-white rounded-lg"
             >
               Back
             </Link>
-            <button className="px-8 py-2 hover:bg-opacity-75 transition-all bg-blue-500 text-white rounded">
+            <button className="px-8 py-2 hover:bg-opacity-75 transition-all bg-blue-500 text-white rounded-lg">
               Download PDF
             </button>
           </div>

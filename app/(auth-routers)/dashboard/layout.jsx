@@ -22,29 +22,25 @@ const Page = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const duser = decodeUser();
+    console.log(duser);
     dispatch(setUser(duser.user));
   }, []);
+
   return (
     <>
       {loading ? (
         <LoaderHash />
       ) : (
         <div className="h-full">
-          {/* header section start */}
           <header className="h-[75px] md:pl-56 fixed inset-y-0 w-full z-50">
             <Header />
           </header>
-          {/* header section end */}
 
-          {/* sidebar section start */}
           <div className="hidden md:flex h-full w-60 flex-col inset-y-0 fixed z-50">
             <SidebarWrapper />
           </div>
-          {/* sidebar section end */}
 
-          {/* main body left section start */}
           <main className="md:pl-60 m-2 h-full pt-[75px]">{children}</main>
-          {/* main body left section end */}
         </div>
       )}
     </>
