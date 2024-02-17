@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { BASE_URL } from "../config/url-manager";
-import { decodeUser } from "../access-token/access_token";
+import { accessToken, decodeUser } from "../access-token/access_token";
 
 export const userRegister = async (userData) => {
   const result = await axios.post(`${BASE_URL}/api/auth/createUser`, userData);
@@ -45,5 +45,15 @@ export const addPersonInfo = async (parsonData) => {
     `${BASE_URL}/api/auth/addPersonInfo`,
     parsonData
   );
+  return result;
+};
+//
+export const getAUser = async (id) => {
+  const access_token = accessToken();
+  const result = await axios.get(`${BASE_URL}/api/form/getFormOne/${id}`, {
+    headers: {
+      access_token: access_token,
+    },
+  });
   return result;
 };

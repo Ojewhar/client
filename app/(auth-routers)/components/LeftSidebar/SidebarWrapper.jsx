@@ -2,13 +2,7 @@
 import React from "react";
 import Sidebars from "./Sidebars/Sidebars";
 import logo from "@/public/images/logo.png";
-
-import { useSelector } from "react-redux";
 import Image from "next/image";
-import profileImg from "@/public/images/Profile photo.png";
-import Logout from "@/public/images/Logout.svg";
-import Cookies from "js-cookie";
-import { setUser } from "@/app/context/slices/userSlice";
 import Loggedout from "./Sidebars/Logout/Loggedout";
 
 const SidebarWrapper = () => {

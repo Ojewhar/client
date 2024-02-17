@@ -1,4 +1,4 @@
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./Layouts/ThemeProvider";
 import "react-phone-input-2/lib/bootstrap.css";
@@ -6,9 +6,9 @@ import ToastProvider from "./Shared/ToastProvider";
 import "react-datepicker/dist/react-datepicker.css";
 
 import ReduxWrapper from "./ReduxWrapper";
-const poppins = Inter({
+const poppins = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 export const metadata = {
   title: "Certnow",
