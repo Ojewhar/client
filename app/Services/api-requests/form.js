@@ -33,6 +33,24 @@ export const getAllFormData = async () => {
   }
 };
 
+export const acceptSinglePatientForm = async (id, status) => {
+  const access_token = accessToken();
+  if (access_token !== null || access_token !== undefined || access_token) {
+    const result = await axios.put(
+      `${BASE_URL}/api/form/updateSinglePatient/${id}`,
+      status,
+      {
+        headers: {
+          access_token: access_token,
+        },
+      }
+    );
+    return result;
+  } else {
+    return "You dont have jwt";
+  }
+};
+
 // Access token routes
 export const createFormOne = async (formData) => {
   try {

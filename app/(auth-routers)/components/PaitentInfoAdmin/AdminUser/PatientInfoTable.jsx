@@ -19,17 +19,14 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import Loader from "@/app/Shared/Loader";
-import { useRouter } from "next/navigation";
 import { pageItems } from "@/app/data/PageItem";
-import TableFooter from "../Global/TableFooter";
-import { DatePicker } from "@/app/Shared/DatePicker";
-import FilterTableData from "../Global/FilterTableData";
-import EquipeAdd from "./EquipeAdd";
-import EquipeUpdate from "./EquipeUpdate";
-import EquipeDelete from "./EquipeDelete";
 import { BASE_URL } from "@/app/Services/config/url-manager";
+import PatientInfoDelete from "./PatientInfoDelete";
+import TableFooter from "../../Global/TableFooter";
+import FilterTableData from "../../Global/FilterTableData";
+import { useRouter } from "next/navigation";
 
-const EquipeTable = () => {
+const PatientInfoTable = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
@@ -55,11 +52,11 @@ const EquipeTable = () => {
     if (value) {
       const v = value.toLowerCase();
       const tdata = data?.filter((item) =>
-        item?.title?.toLowerCase().includes(v)
+        item?.firstFormLName?.toLowerCase().includes(v)
       );
       setCurrentData(tdata);
     } else {
-      setCurrentData(currentData);
+      setCurrentData(data);
     }
     setCurrentPage(1);
   }
@@ -107,18 +104,10 @@ const EquipeTable = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
-
+  const router = useRouter();
   // show selected item and store
-  function editSingleData(item) {
-    setShowModel(true);
-    setSelectedItem(item);
-    setModelType("update");
-  }
-
-  // add data for marque button
-  function addProductData() {
-    setShowModel(true);
-    setModelType("add");
+  function editSingleData(id) {
+    router.push(`/dashboard/patientinfo/${id}`);
   }
   // add data for marque button
   function deleteProductData(item) {
@@ -126,27 +115,13 @@ const EquipeTable = () => {
     setSelectedItem(item);
     setModelType("delete");
   }
-
-  const router = useRouter();
-  // add data for marque button
-  function csvUpload() {
-    router.push("/dashboard/admin/revendeurs/uploadcsv");
-  }
   return (
     <section>
       {loading ? (
         <Loader />
       ) : (
         <div>
-          <div className="flex justify-end items-center gap-5 mb-4">
-            <Button
-              className="text-white  rounded-xl font-normal"
-              onClick={addProductData}
-            >
-              <PlusIcon className="mr-2" />
-              Nouvelle facture
-            </Button>
-          </div>
+          <div className="flex justify-end items-center gap-5 mb-4"></div>
           <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
             <h1 className="font-semibold text-xl mb-2 md:mb-0">
               Registered Patientes
@@ -174,7 +149,6 @@ const EquipeTable = () => {
               title="Aucune commande"
               desc="Cette marque n’a encore jamais reçue de commande."
               btntext="Commande"
-              onClick={addProductData}
             />
           ) : (
             <div className="pt-5 rounded-br-xl rounded-bl-xl bg-white dark:bg-gray-700 dark:text-gray-400 p-5">
@@ -251,7 +225,7 @@ const EquipeTable = () => {
                     {currentData?.map((item) => {
                       return (
                         <tr
-                          key={item.id}
+                          key={item._id}
                           className="bg-white dark:border-b  dark:bg-gray-800 dark:border-gray-700"
                         >
                           <td className="px-6 py-3">
@@ -282,12 +256,12 @@ const EquipeTable = () => {
                           <td className="px-6 py-3">
                             <div className="flex justify-end items-center gap-1">
                               <Edit
-                                // onClick={() => deleteProductData(item)}
+                                onClick={() => editSingleData(item._id)}
                                 size={28}
                                 className=" text-yellow-600 hover:shadow-sm p-1 cursor-pointer bg-yellow-100 rounded"
                               />
                               <Trash2
-                                onClick={() => editSingleData(item)}
+                                onClick={() => deleteProductData(item)}
                                 size={28}
                                 className="text-red-600 hover:shadow-sm p-1 cursor-pointer bg-red-100"
                               />
@@ -311,16 +285,8 @@ const EquipeTable = () => {
               </div>
             </div>
           )}
-          {modelType === "add" ? (
-            <EquipeAdd showModel={showModel} setShowModel={setShowModel} />
-          ) : modelType === "update" ? (
-            <EquipeUpdate
-              showModel={showModel}
-              setShowModel={setShowModel}
-              data={selectedItem}
-            />
-          ) : (
-            <EquipeDelete
+          {modelType === "delete" && (
+            <PatientInfoDelete
               showModel={showModel}
               setShowModel={setShowModel}
               data={selectedItem}
@@ -332,4 +298,4 @@ const EquipeTable = () => {
   );
 };
 
-export default EquipeTable;
+export default PatientInfoTable;

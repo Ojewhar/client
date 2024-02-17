@@ -1,79 +1,67 @@
-import { COLOR } from "@/app/constant/colors";
-import React, { PureComponent } from "react";
+import React from "react";
+import { Bar } from "react-chartjs-2";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-  defs,
-  linearGradient,
-  stop,
-} from "recharts";
+} from "chart.js";
+import { COLOR } from "@/app/constant/colors";
 
-const data = [
-  {
-    name: "S01",
-    pv: 1398,
-  },
-  {
-    name: "S02",
-    pv: 9800,
-  },
-  {
-    name: "S03",
-    pv: 3908,
-  },
-  {
-    name: "S04",
-    pv: 4800,
-  },
-  {
-    name: "S05",
-    pv: 3800,
-  },
-  {
-    name: "S06",
-    pv: 4300,
-  },
-  {
-    name: "S07",
-    pv: 2400,
-  },
-];
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-export default class TotalDesCommandes extends PureComponent {
-  render() {
-    return (
-      <ResponsiveContainer width="100%" height={230}>
-        <BarChart
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <defs>
-            <linearGradient id="gradientId" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={COLOR.primary} stopOpacity={0.8} />
-              <stop offset="95%" stopColor={COLOR.primary} stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="name" />
-          <Tooltip />
-          <Bar
-            dataKey="pv"
-            fill="url(#gradientId)"
-            barSize={20}
-            radius={[10, 10, 0, 0]}
-          />
-        </BarChart>
-      </ResponsiveContainer>
-    );
-  }
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Chart.js Bar Chart",
+    },
+  },
+  scales: {
+    x: {
+      type: "category",
+    },
+  },
+};
+
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
+
+const generateRandomData = () => {
+  return labels.map(() => Math.floor(Math.random() * 1000));
+};
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: "Patient",
+      data: generateRandomData(),
+      backgroundColor: COLOR.uorange,
+    },
+    {
+      label: "User",
+      data: generateRandomData(),
+      backgroundColor: COLOR.lightsky,
+    },
+  ],
+};
+
+function TotalDesCommandes() {
+  return <Bar options={options} data={data} />;
 }
+
+export default TotalDesCommandes;

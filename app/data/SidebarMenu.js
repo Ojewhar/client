@@ -24,12 +24,17 @@ export const guestRoutes = [
     label: "Patient Info",
     href: "/dashboard/patient",
   },
+  {
+    icon: ClipboardPlus,
+    label: "Patient Info",
+    href: "/dashboard/patientinfo",
+  },
 ];
 
 export const adminRoutes = [
   {
-    icon: Settings,
-    label: "Équipe",
-    href: "/dashboard/equipe",
+    icon: ClipboardPlus,
+    label: "Patient Info",
+    href: "/dashboard/patientinfo",
   },
 ];
