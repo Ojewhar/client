@@ -7,5 +7,5 @@ export const BASE_URL =
 // server
 export const BASE_URL_CLIENT =
   process.env.NODE_ENV === "production"
-    ? "https://www.patient.certnow.com.au/"
+    ? "https://certnow.com.au"
     : "http://localhost:3000/";
