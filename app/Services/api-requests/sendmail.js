@@ -84,3 +84,12 @@ export const sendMedicaleCertificateMail = async (formData) => {
   console.log(result);
   return result;
 };
+// send certificate active email
+export const sendEmailOnlyUser = async (formData) => {
+  const result = await axios.post(
+    `${BASE_URL}/api/mail/sendEmailOnlyUser`,
+    formData
+  );
+  console.log(result);
+  return result;
+};

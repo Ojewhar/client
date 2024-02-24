@@ -21,9 +21,7 @@ const Page = () => {
         Cookies.set("access_token", isToken);
       }
       toast.success(res.data);
-      setTimeout(() => {
-        window.location.replace("/dashboard");
-      }, 1000);
+      window.location.replace("/dashboard");
       setLoading(false);
     } catch (error) {
       toast.error(error.response.data);

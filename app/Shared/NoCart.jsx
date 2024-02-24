@@ -17,10 +17,6 @@ const NoCart = ({ onClick, title, desc, btntext }) => {
             : "Vous n’avez encore jamais ajouté de marque sur la plateforme"}
           .
         </p>
-        <Button onClick={onClick} className="text-white mt-4 rounded-xl px-6">
-          <Image src={plus} alt="plus" className=" inline-block mr-2 " />
-          {btntext ? btntext : "Marque"}
-        </Button>
       </div>
     </div>
   );

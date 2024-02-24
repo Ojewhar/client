@@ -42,7 +42,7 @@ const TableFooter = ({
               className="px-1  py-0.5  rounded-md bg-gray-300"
               onChange={(e) => changePageItem(e.target.value)}
             >
-              <option value="15">15</option>
+              <option value="10">10</option>
               <option value="30">30</option>
               <option value="50">50</option>
               <option value="100">100</option>
@@ -51,7 +51,7 @@ const TableFooter = ({
           <div>
             <p className="text-sm ">
               <span className="text-slate-400">{pagename} par page</span> 1-
-              {itemsPerPage} sur {data?.length} {pagename}
+              {itemsPerPage} of {data?.length} {pagename}
             </p>
           </div>
         </div>
@@ -71,7 +71,7 @@ const TableFooter = ({
           </div>
           <div>
             <p className="text-sm ">
-              sur {calcuPages === 0 ? 1 : calcuPages} pages
+              of {calcuPages === 0 ? 1 : calcuPages} pages
             </p>
           </div>
           <div className="flex items-center justify-end gap-4 ml-3">

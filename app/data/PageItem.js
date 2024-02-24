@@ -1,1 +1,1 @@
-export const pageItems = 15;
+export const pageItems = 10;

@@ -3,7 +3,7 @@ import { FNCButton } from "@/app/components/buttons/FNCButton";
 import Image from "next/image";
 import React from "react";
 import logo from "@/public/images/logo.png";
-import wc from "@/public/images/wc.png";
+import wc from "@/public/images/patient.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { addFormOne } from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
 import { SubmitButton } from "@/app/components/buttons/SubmitButton";
@@ -20,7 +20,7 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
     <>
       <section>
         <div>
-          <div className="w-[661px] mx-auto">
+          <div className="md:w-[661px] mx-auto">
             <div>
               <Image
                 width={200}
@@ -42,7 +42,7 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
               {/* part 01 start */}
               <div>
                 <div className="text-center">
-                  <h2 className="text-2xl font-semibold works">
+                  <h2 className="md:text-2xl text-lg font-semibold works">
                     Request your Medical Certificate Doctor in just 2 minutes
                   </h2>
                   <p className="py-3 text-[11px] text-uptext">
@@ -54,14 +54,12 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
                 <div>
                   <Image
                     src={wc}
-                    width={615}
-                    height={500}
                     alt="wcimage"
-                    className="mx-auto"
+                    className="mx-auto rounded-lg md:h-[400px] h-[200px] w-full object-cover"
                   />
                 </div>
 
-                <div className="flex justify-between gap-4 items-center">
+                <div className="md:flex justify-between gap-4 items-center mt-4 md:mt-0">
                   <div className="md:w-1/2">
                     <Link
                       href="/"

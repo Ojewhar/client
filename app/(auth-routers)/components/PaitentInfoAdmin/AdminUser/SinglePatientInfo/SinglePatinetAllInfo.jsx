@@ -6,13 +6,14 @@ import {
 import Loading from "@/app/components/Loader/Loading";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const SinglePatinetAllInfo = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [loading2, set2Loading] = useState(false);
-
+  const router = useRouter();
   async function handleUpdatePatientFormActive() {
     try {
       setLoading(true);
@@ -46,12 +47,13 @@ const SinglePatinetAllInfo = ({ data }) => {
       }
       toast.success(res.data.message);
       set2Loading(false);
+      router.refresh();
     } catch (error) {
       console.log(error);
       set2Loading(false);
     }
   }
-
+  console.log(data);
   return (
     <section>
       {data ? (
@@ -68,11 +70,10 @@ const SinglePatinetAllInfo = ({ data }) => {
                 <h1 className="text-xl font-bold">Patient Information</h1>
                 <p className="font-semibold">
                   Payment Status :{" "}
-                  {data?.payment?.payment_status === "unpaid" ||
-                  data?.payment?.payment_status === undefined ? (
-                    <span className="text-red-700 font-bold">Unpaid</span>
-                  ) : (
+                  {data?.payment?.status === "paid" ? (
                     <span className="text-green-700 font-bold">Paid</span>
+                  ) : (
+                    <span className="text-red-700 font-bold">Unpaid</span>
                   )}
                 </p>
               </div>
@@ -150,16 +151,16 @@ const SinglePatinetAllInfo = ({ data }) => {
               </div>
             </div>
           </div>
-          <div className="mt-4 text-center flex justify-center items-center gap-3">
+          <div className="mt-4 text-center flex justify-center items-center gap-3 mb-3">
             <Link
               href="/dashboard/patientinfo"
               className="px-8 py-2 hover:bg-opacity-75 transition-all bg-uptext text-white rounded-lg"
             >
               Back
             </Link>
-            <button className="px-8 py-2 hover:bg-opacity-75 transition-all bg-blue-500 text-white rounded-lg">
+            {/* <button className="px-8 py-2 hover:bg-opacity-75 transition-all bg-blue-500 text-white rounded-lg">
               Download PDF
-            </button>
+            </button> */}
           </div>
         </div>
       ) : (

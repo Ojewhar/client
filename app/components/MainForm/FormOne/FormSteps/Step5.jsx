@@ -68,7 +68,7 @@ const Step5 = ({ nextStep, prevStep }) => {
   return (
     <section>
       <Toaster />
-      <div className="w-[661px] mx-auto">
+      <div className="md:w-[661px] mx-auto">
         <div>
           <div>
             <Image
@@ -94,7 +94,7 @@ const Step5 = ({ nextStep, prevStep }) => {
           {/* form data section start */}
 
           <div className="">
-            <div className="grid grid-cols-2 gap-6 mt-5">
+            <div className="md:grid grid-cols-2 gap-6 mt-5">
               <div>
                 <label htmlFor="fname" className="text-uptext font-bold">
                   First name(s)
@@ -199,7 +199,7 @@ const Step5 = ({ nextStep, prevStep }) => {
               />
             </div>
 
-            <div className="grid grid-cols-3 gap-6 mt-5">
+            <div className="md:grid grid-cols-3 gap-6 md:mt-5">
               <div>
                 <label htmlFor="Suburb" className="text-uptext font-bold">
                   Suburb
@@ -243,7 +243,7 @@ const Step5 = ({ nextStep, prevStep }) => {
               </div>
             </div>
 
-            <div className=" mt-3">
+            <div className=" md:mt-3">
               <label htmlFor="email" className="text-uptext font-bold">
                 Email
               </label>
@@ -256,7 +256,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                 className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded  hover:border-upurple"
               />
             </div>
-            <div className="grid grid-cols-2 gap-6 mt-3">
+            <div className="md:grid grid-cols-2 gap-6 mt-3">
               <div>
                 <label htmlFor="lname" className="text-uptext font-bold">
                   Password
