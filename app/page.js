@@ -32,7 +32,7 @@ const page = () => {
               the weather.
             </p>
           </section>
-          <section className="mb-8">
+          <section id="pricing" className="mb-8">
             <h2 className="text-2xl font-bold">Pricing</h2>
             <p>Insert pricing information here...</p>
 

@@ -7,6 +7,8 @@ import telehealthConsultationReducer from "../states/telehealthConsultation/tele
 import loginAccessTokenReducer from "../states/loginAccessToken/loginAccessTokenSlice";
 import onboardReducer from "../states/onboardSlice/onboardSlice";
 import formOneCertificateReducer from "../states/formOneCertificate/formOneCertificateSlice";
+import formOneReducer from "../slices/fomrOneSlice";
+import downloadCertificateReducer from "../slices/downloadCertificateSlice";
 
 const rootReducer = combineReducers({
   userInfo: userReducer,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   consultationCounter: consultationCounterReducer,
   loginAccessToken: loginAccessTokenReducer,
   onboard: onboardReducer,
+  fomrOneInfo: formOneReducer,
+  downloadCertificate: downloadCertificateReducer,
 });
 
 export default rootReducer;

@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "@/public/images/logo.png";
 import bannerImg from "@/public/images/subscription-banner-main-image.png";
-import Link from "next/link";
-import img3 from "@/public/images/MedCert.png";
-import GenCons from "@/public/images/GenCons.png";
-import { LinkButton } from "@/app/components/buttons/LinkButton";
-import { FaRegTimesCircle } from "react-icons/fa";
+import patientImg from "@/public/images/patient.jpg";
 import ProfileSec from "./ProfileSec";
-import { useSelector } from "react-redux";
 import ConsultationForm from "./ConsultationForm/ConsultationForm";
 import { getASingleUser } from "@/app/Services/api-requests/auth";
+import TableFooter from "../../Global/TableFooter";
+import { pageItems } from "@/app/data/PageItem";
 
 const IsItPatient = () => {
   const [userInfo, setUserInfo] = useState(null);
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentData, setCurrentData] = useState([]);
+  const [itemsPerPage, setItemPerPage] = useState(pageItems);
+
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setCurrentData(data.slice(startIndex, endIndex));
+  }, [data, itemsPerPage, currentPage]);
+
   useEffect(() => {
     async function getData() {
       try {
         const res = await getASingleUser();
-        console.log(res);
         setUserInfo(res.data);
+        setData(res.data.forms);
       } catch (error) {
         console.log(error);
       }
@@ -27,58 +34,47 @@ const IsItPatient = () => {
     getData();
   }, []);
 
-  console.log(userInfo);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <section className="p-5">
       <div>
-        <div className=" bg-upurple  rounded flex p-10 md:p-0 ">
-          <div className=" hidden md:flex ml-4  items-end ">
+        <div className=" bg-upurple  flex md:p-0  ">
+          <div className=" hidden md:flex  items-end  ">
             <Image
-              src={bannerImg}
+              src={patientImg}
               alt="banner-main-img"
-              width={125}
-              height={125}
+              width={175}
+              height={175}
             />
           </div>
-          <div className="md:ml-12 md:py-5 md:flex items-center text-white">
+          <div className="md:ml-12 md:flex items-center text-white md:py-8">
             <div>
-              <h5 className="font-semibold">Upgrade to Updoc Plus</h5>
-              <p className="text-sm py-2">
-                Unlock unlimited consultation requests for just $19.95/month.
-              </p>
-
-              {userInfo?.forms.length < 1 && (
-                <div className="py-3">
-                  <Link
-                    href="/form"
-                    className="py-4 px-20 md:inline-block block text-center bg-white hover:opacity-85 transition-all text-ublack font-semibold rounded"
-                  >
-                    Start Now
-                  </Link>
-                </div>
-              )}
-
+              <h5 className="font-semibold text-2xl leading-normal">
+                Hello {userInfo?.name} . Welcome to certnow healthcare
+              </h5>
               <p className="text-sm pt-2">
-                Unlock unlimited consultation requests for just $19.95/month.
+                Unlock unlimited consultation requests for just{" "}
+                <strong>$29.</strong>
               </p>
             </div>
           </div>
         </div>
 
-        <div className="md:grid grid-cols-3 gap-5 py-4 mt-8">
+        <div className="md:grid grid-cols-3 gap-8 py-4 mt-8">
           <div className="col-span-2">
             <h2 className="font-semibold text-2xl text-ublack">
               Consultations
             </h2>
             <h3 className="font-semibold text-xl text-ublack mt-3">
-              Start a new consultation with a partner practitioner who, if
-              applicable, can provide an outcome which includes
+              Start a new consultation . Here is list of your consultation
             </h3>
 
             <div className="md:grid grid-cols-2 gap-5 py-6">
-              {userInfo ? (
-                userInfo.forms.map((item, index) => {
+              {currentData ? (
+                currentData.map((item, index) => {
                   return (
                     <div key={index}>
                       <ConsultationForm item={item} />
@@ -90,6 +86,17 @@ const IsItPatient = () => {
                   <p className="font-bold text-uorange">Loading........</p>
                 </div>
               )}
+            </div>
+
+            <div>
+              <TableFooter
+                data={data}
+                setItemPerPage={setItemPerPage}
+                pagename="Patient Info"
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                itemsPerPage={itemsPerPage}
+              />
             </div>
           </div>
 

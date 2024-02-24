@@ -61,7 +61,7 @@ const Preview = ({ prevStep, nextStep }) => {
   return (
     <section>
       <Toaster />
-      <div className="w-[661px] mx-auto">
+      <div className="md:w-[661px] mx-auto">
         <div>
           <div>
             <Image

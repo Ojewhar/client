@@ -5,19 +5,6 @@ import { COLOR } from "@/app/constant/colors";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ["Accepted", "Rejected", "Pending"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 10],
-      backgroundColor: [COLOR.uorangedark, COLOR.upred, COLOR.upyellow],
-      borderColor: " #fff",
-      borderWidth: 1,
-    },
-  ],
-};
-
 const options = {
   responsive: true,
   plugins: {
@@ -41,7 +28,7 @@ const options = {
   maxHeight: 300,
 };
 
-function PieChartPatient() {
+function PieChartPatient({ data }) {
   return <Pie options={options} data={data} />;
 }
 

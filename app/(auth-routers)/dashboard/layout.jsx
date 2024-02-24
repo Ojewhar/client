@@ -22,7 +22,6 @@ const Page = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     const duser = decodeUser();
-    console.log(duser);
     dispatch(setUser(duser.user));
   }, []);
 

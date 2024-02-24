@@ -37,7 +37,7 @@ const Step2 = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
 
   return (
     <section>
-      <div className="w-[661px] mx-auto">
+      <div className="md:w-[661px] mx-auto">
         <div>
           <div>
             <Image

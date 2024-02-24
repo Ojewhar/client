@@ -110,40 +110,39 @@ const PatientInfoTable = () => {
     router.push(`/dashboard/patientinfo/${id}`);
   }
   // add data for marque button
-  function deleteProductData(item) {
+  function deletePatientData(item) {
     setShowModel(true);
     setSelectedItem(item);
     setModelType("delete");
   }
   return (
     <section>
-      <div>
-        <div className="flex justify-end items-center gap-5 mb-4"></div>
-        <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
-          <h1 className="font-semibold text-xl mb-2 md:mb-0">
-            Registered Patientes
-          </h1>
-          <div className="mb-2 md:mb-0 flex gap-1 justify-end items-center">
-            <div className=" relative  ">
-              <Input
-                type="search"
-                placeholder="Rechercher..."
-                className="pl-10 pr-4 outline-none"
-                onChange={(e) => filterData(e.target.value)}
-              />
-              <Image
-                src={Search}
-                alt="Search"
-                className=" absolute top-1/2 left-4 -translate-x-2 -translate-y-1/2"
-              />
+      {currentData.length === 0 ? (
+        <LoaderHash />
+      ) : (
+        <div>
+          <div className="flex justify-end items-center gap-5 mb-4"></div>
+          <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
+            <h1 className="font-semibold text-xl mb-2 md:mb-0">
+              Registered Patientes
+            </h1>
+            <div className="mb-2 md:mb-0 flex gap-1 justify-end items-center">
+              <div className=" relative  ">
+                <Input
+                  type="search"
+                  placeholder="Rechercher..."
+                  className="pl-10 pr-4 outline-none"
+                  onChange={(e) => filterData(e.target.value)}
+                />
+                <Image
+                  src={Search}
+                  alt="Search"
+                  className=" absolute top-1/2 left-4 -translate-x-2 -translate-y-1/2"
+                />
+              </div>
+              <FilterTableData />
             </div>
-            <FilterTableData />
           </div>
-        </div>
-
-        {currentData.length === 0 ? (
-          <LoaderHash />
-        ) : (
           <div className="pt-5 rounded-br-xl rounded-bl-xl bg-white dark:bg-gray-700 dark:text-gray-400 p-5">
             <div className="relative overflow-x-auto ">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -182,20 +181,10 @@ const PatientInfoTable = () => {
                         />
                       </div>
                     </th>
+
                     <th scope="col" className="px-6 py-3">
                       <div className="flex gap-1 items-center">
-                        Request Data
-                        <Image
-                          src={sort}
-                          alt="sort"
-                          className=" cursor-pointer"
-                          onClick={() => makeSortArr("stock")}
-                        />
-                      </div>
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      <div className="flex gap-1 items-center">
-                        To Data
+                        Date
                         <Image
                           src={sort}
                           alt="sort"
@@ -226,8 +215,7 @@ const PatientInfoTable = () => {
                         </td>
                         <td className="px-6 py-3">{item.firstFormEmail}</td>
                         <td className="px-6 py-3">{item.firstFormMobile}</td>
-                        <td className="px-6 py-3">{item.firstFormEmail}</td>
-                        <td className="px-6 py-3">{item.toDate}</td>
+                        <td className="px-6 py-3">{item.fromDate}</td>
                         <td className="px-6 py-3">
                           {item.switablityForCirtificate}
                         </td>
@@ -240,7 +228,7 @@ const PatientInfoTable = () => {
                                 ? "text-yellow-600 bg-yellow-100"
                                 : item.status === "active"
                                 ? "text-green-600 bg-green-100"
-                                : "text-red-600 bg-green-red"
+                                : "text-red-600 bg-red-100"
                             }  capitalize hover:shadow-sm px-4 w-[100px] py-1 cursor-pointer p-2 rounded-lg`}
                           >
                             {item.status}
@@ -254,7 +242,7 @@ const PatientInfoTable = () => {
                               className=" text-yellow-600 hover:shadow-sm p-1 cursor-pointer bg-yellow-100 rounded"
                             />
                             <Trash2
-                              onClick={() => deleteProductData(item)}
+                              onClick={() => deletePatientData(item)}
                               size={28}
                               className="text-red-600 hover:shadow-sm p-1 cursor-pointer bg-red-100"
                             />
@@ -277,15 +265,16 @@ const PatientInfoTable = () => {
               />
             </div>
           </div>
-        )}
-        {modelType === "delete" && (
-          <PatientInfoDelete
-            showModel={showModel}
-            setShowModel={setShowModel}
-            data={selectedItem}
-          />
-        )}
-      </div>
+
+          {modelType === "delete" && (
+            <PatientInfoDelete
+              showModel={showModel}
+              setShowModel={setShowModel}
+              data={selectedItem}
+            />
+          )}
+        </div>
+      )}
     </section>
   );
 };

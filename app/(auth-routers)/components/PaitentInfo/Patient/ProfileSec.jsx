@@ -73,33 +73,9 @@ const ProfileSec = ({ userInfo }) => {
               </>
             )}
           </div>
-
-          <div className="flex items-center mb-3">
-            {userInfo ? (
-              <>
-                <CiLocationOn className=" text-uorangedark text-xl font-semibold mr-3" />
-                <p>
-                  {userInfo?.firstFormPost}, {userInfo?.firstFormState},{" "}
-                  {userInfo?.firstFormStreet}, {userInfo?.firstFormSuburb}
-                </p>
-              </>
-            ) : (
-              <>
-                <div className="animate-pulse flex gap-3">
-                  <div className="rounded-full bg-slate-200 h-6 w-6"></div>
-                  <div>
-                    <div className="h-2 w-[100px] bg-slate-200 rounded"></div>
-                    <div className="h-2 w-[100px] bg-slate-200 rounded"></div>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
         </div>
 
-        {/* Payment  details section in profile */}
-
-        <h3 className="font-semibold text-xl text-ublack mt-6">Payment</h3>
+        {/* <h3 className="font-semibold text-xl text-ublack mt-6">Payment</h3>
         <div className="p-5 bg-white border border-slate-300 rounded mt-5 shadow-md">
           <Button
             type="button"
@@ -107,7 +83,7 @@ const ProfileSec = ({ userInfo }) => {
           >
             Manage Billing
           </Button>
-        </div>
+        </div> */}
 
         {/* id verification section in profile */}
 
