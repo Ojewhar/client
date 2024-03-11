@@ -1,42 +1,56 @@
-import { FNCButton } from "@/app/components/buttons/FNCButton";
-import { SubmitButton } from "@/app/components/buttons/SubmitButton";
-import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "@/public/images/logo.png";
+import { FNCButton } from '@/app/components/buttons/FNCButton';
+import { SubmitButton } from '@/app/components/buttons/SubmitButton';
+import Image from 'next/image';
+import toast, { Toaster } from 'react-hot-toast';
+import React, { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import { useDispatch, useSelector } from 'react-redux';
+import logo from '@/public/images/logo.png';
 import {
   addFormOne,
   removeFromOne,
-} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
+} from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
 
 const Step5 = ({ nextStep, prevStep }) => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [firstFormEmail, setFirstFormEmail] = useState("");
-  const [firstFormPassword, setfirstFormPassword] = useState("");
-  const [firstFormCPassword, setfirstFormCPassword] = useState("");
-  const [firstFormFName, setFirstFormFName] = useState("");
-  const [firstFormLName, setFirstFormLName] = useState("");
-  const [firstFormMobile, setFirstFormMobile] = useState("");
-  const [firstFormStreet, setFirstFormStreet] = useState("");
-  const [firstFormSuburb, setFirstFormSuburb] = useState("");
-  const [firstFormState, setFirstFormState] = useState("");
-  const [firstFormPost, setFirstFormPost] = useState("");
+  const [firstFormEmail, setFirstFormEmail] = useState('');
+  const [firstFormPassword, setfirstFormPassword] = useState('');
+  const [firstFormCPassword, setfirstFormCPassword] = useState('');
+  const [firstFormFName, setFirstFormFName] = useState('');
+  const [firstFormLName, setFirstFormLName] = useState('');
+  const [firstFormMobile, setFirstFormMobile] = useState('');
+  const [firstFormStreet, setFirstFormStreet] = useState('');
+  const [firstFormSuburb, setFirstFormSuburb] = useState('');
+  const [firstFormState, setFirstFormState] = useState('');
+  const [firstFormPost, setFirstFormPost] = useState('');
   const [isError, setIsError] = useState(false);
+  const [dobError, setDobError] = useState(true);
 
   const thisYear = new Date();
   const dispatch = useDispatch();
   // Format the date and time
-  const formattedDOBTime = dateOfBirth.toISOString().split("T")[0];
+
+  const handleDateOfBirth = (e) => {
+    let selectedDate = new Date(e.target.value);
+
+    if (thisYear.getFullYear() - selectedDate.getFullYear() < 18) {
+      setDobError(true);
+    } else {
+      setDobError(false);
+      let formattedDate = selectedDate.toISOString().slice(0, 10);
+      setDateOfBirth(formattedDate);
+    }
+  };
+  // const formattedDOBTime =
+  //   dateOfBirth && dateOfBirth?.toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (thisYear.getFullYear() - dateOfBirth.getFullYear() < 18) {
-      return toast.error("Please fix date of birth");
+    if (dobError) {
+      return toast.error('Please fix date of birth');
     }
     if (firstFormPassword !== firstFormCPassword) {
-      return toast.error("Both password are did not match !");
+      return toast.error('Both password are did not match !');
     }
     dispatch(
       addFormOne({
@@ -45,7 +59,7 @@ const Step5 = ({ nextStep, prevStep }) => {
         firstFormEmail: firstFormEmail,
         firstFormPassword: firstFormPassword,
         firstFormCPassword: firstFormCPassword,
-        dateOfBirth: formattedDOBTime,
+        dateOfBirth: dateOfBirth,
         firstFormMobile: firstFormMobile,
         firstFormStreet: firstFormStreet,
         firstFormSuburb: firstFormSuburb,
@@ -58,9 +72,31 @@ const Step5 = ({ nextStep, prevStep }) => {
   };
   // Back Button Function
   const backButtonFunc = () => {
-    dispatch(removeFromOne());
+    // dispatch(removeFromOne());
     prevStep();
   };
+
+  // Fetch default value from Redux store
+  const defaultValue = useSelector(
+    (state) => state.formOneCertificate.alldata[4]
+  );
+
+  useEffect(() => {
+    if (defaultValue) {
+      setFirstFormFName(defaultValue.firstFormFName);
+      setFirstFormLName(defaultValue.firstFormLName);
+      setFirstFormEmail(defaultValue.firstFormEmail);
+      setfirstFormPassword(defaultValue.firstFormPassword);
+      setfirstFormCPassword(defaultValue.firstFormCPassword);
+      setfirstFormCPassword(defaultValue.firstFormCPassword);
+      setDateOfBirth(new Date(defaultValue.dateOfBirth));
+      setFirstFormMobile(defaultValue.firstFormMobile);
+      setFirstFormStreet(defaultValue.firstFormStreet);
+      setFirstFormSuburb(defaultValue.firstFormSuburb);
+      setFirstFormState(defaultValue.firstFormState);
+      setFirstFormPost(defaultValue.firstFormPost);
+    }
+  }, [defaultValue]);
 
   // const data = useSelector((state) => state.formOneCertificate.alldata);
   // console.log(firstFormPassword, firstFormCPassword);
@@ -104,6 +140,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="fname"
                   type="text"
                   name="fname"
+                  value={firstFormFName}
                   onChange={(e) => setFirstFormFName(e.target.value)}
                   className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded  hover:border-upurple"
                 />
@@ -118,6 +155,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="lname"
                   type="text"
                   name="lname"
+                  value={firstFormLName}
                   onChange={(e) => setFirstFormLName(e.target.value)}
                   className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 />
@@ -131,38 +169,17 @@ const Step5 = ({ nextStep, prevStep }) => {
               <label className="text-uptext font-bold">Date Of Birth</label>
               <br></br>
               <div className="relative w-full block border focus:border-2 outline-none rounded focus:ring-upurple focus:border-upurple  border-slate-300">
-                <DatePicker
-                  showMonthDropdown
-                  showYearDropdown
-                  dropdownMode="select"
-                  id="formdatepicker"
-                  placeholderText="mm/dd/yyyy"
-                  className=" p-3 md:w-[660px] w-full rounded"
-                  onChange={(date) => setDateOfBirth(date)}
-                  selected={dateOfBirth}
-                  required
+                <input
+                  type="date"
+                  className="w-full p-4 rounded-md text-base border"
+                  value={dateOfBirth}
+                  onChange={handleDateOfBirth}
                 />
-                <label
-                  htmlFor="formdatepicker"
-                  className="absolute top-1/3 right-2 -mt-2 "
-                >
-                  <svg
-                    className="w-[36px] fill-gray-500 cursor-pointer h-[36px] p-1.5 hover:bg-sky-50 rounded-full"
-                    focusable="false"
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    data-testid="CalendarIcon"
-                  >
-                    <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path>
-                  </svg>
-                </label>
               </div>
-              {thisYear.getFullYear() - dateOfBirth.getFullYear() < 18 ? (
+              {dobError && (
                 <p className=" text-[12px] uppercase text-red-600 tracking-wider">
                   YOU MUST BE 18 YEARS OLD TO USE THIS SERVICE
                 </p>
-              ) : (
-                <small></small>
               )}
             </div>
 
@@ -174,6 +191,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                 required
                 id="mobile"
                 placeholder="0412345678"
+                value={firstFormMobile}
                 onChange={(e) => setFirstFormMobile(e.target.value)}
                 type="tel"
                 name="mobile"
@@ -194,6 +212,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                 id="street"
                 type="text"
                 name="street"
+                value={firstFormStreet}
                 onChange={(e) => setFirstFormStreet(e.target.value)}
                 className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
               />
@@ -209,6 +228,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="Suburb"
                   type="text"
                   name="Suburb"
+                  value={firstFormSuburb}
                   onChange={(e) => setFirstFormSuburb(e.target.value)}
                   className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 />
@@ -223,6 +243,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="State"
                   type="text"
                   name="State"
+                  value={firstFormState}
                   onChange={(e) => setFirstFormState(e.target.value)}
                   className="w-full  focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 />
@@ -237,6 +258,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="Postalcode"
                   type="text"
                   name="Postalcode"
+                  value={firstFormPost}
                   onChange={(e) => setFirstFormPost(e.target.value)}
                   className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 />
@@ -252,6 +274,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                 id="email"
                 type="email"
                 name="email"
+                value={firstFormEmail}
                 onChange={(e) => setFirstFormEmail(e.target.value)}
                 className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded  hover:border-upurple"
               />
@@ -266,6 +289,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="password"
                   type="password"
                   name="password"
+                  value={firstFormPassword}
                   onChange={(e) => setfirstFormPassword(e.target.value)}
                   className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 />
@@ -280,6 +304,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                   id="cpassword"
                   type="password"
                   name="cpassword"
+                  value={firstFormCPassword}
                   onChange={(e) => setfirstFormCPassword(e.target.value)}
                   className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 />
@@ -299,8 +324,8 @@ const Step5 = ({ nextStep, prevStep }) => {
               title="Continue"
               className={
                 isError
-                  ? "border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer"
-                  : "border-2 md:mb-2 text-white bg-upurple border-upurple"
+                  ? 'border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer'
+                  : 'border-2 md:mb-2 text-white bg-upurple border-upurple'
               }
               disable={isError ? true : false}
             />

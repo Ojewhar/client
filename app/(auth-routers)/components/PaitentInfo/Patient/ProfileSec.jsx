@@ -8,7 +8,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const ProfileSec = ({ userInfo }) => {
-  console.log(userInfo);
   return (
     <>
       <h2 className="font-semibold text-2xl text-ublack">Profile</h2>

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "./Layouts/ThemeProvider";
 import "react-phone-input-2/lib/bootstrap.css";
 import ToastProvider from "./Shared/ToastProvider";
+import "react-day-picker/dist/style.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 import ReduxWrapper from "./ReduxWrapper";
@@ -21,15 +22,15 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className={poppins.className}>
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-        >
-          <ToastProvider />
-          <ReduxWrapper>{children}</ReduxWrapper>
-        </ThemeProvider>
+        > */}
+        <ToastProvider />
+        <ReduxWrapper>{children}</ReduxWrapper>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

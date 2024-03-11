@@ -4,6 +4,7 @@ import PriceCard from "./components/HomePage/PriceCard";
 import GlobalHeader from "./Layouts/GlobalHeader";
 import GlobalFooter from "./Layouts/GlobalFooter";
 import SliderOne from "./components/HomePage/HeroSlider/SliderOne";
+import HomeLogin from "./components/HomePage/HomeLogin";
 
 export const metadata = {
   title: "Certnow",
@@ -51,25 +52,7 @@ const page = () => {
           </section>
           <section className="md:flex justify-between items-center gap-20">
             <div className="md:w-1/2">
-              <form className="flex flex-col space-y-4">
-                <h2 className="text-2xl font-bold mb-2">LOGIN</h2>
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="border border-uorange p-2 outline-none"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="border border-uorange p-2 outline-none"
-                />
-                <button
-                  type="submit"
-                  className="bg-uorangedark border-uorangedark border-2 hover:bg-transparent hover:text-uorangedark transition-all text-white font-bold py-2 px-4 rounded "
-                >
-                  Login
-                </button>
-              </form>
+              <HomeLogin />
             </div>
 
             <div className="md:w-1/2 ">

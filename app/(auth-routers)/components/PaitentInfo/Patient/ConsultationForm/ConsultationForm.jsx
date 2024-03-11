@@ -6,23 +6,52 @@ import { handleCheckoutStripe } from "@/app/Services/api-requests/stripe";
 import { useDispatch } from "react-redux";
 import { setCertificateUser } from "@/app/context/slices/downloadCertificateSlice";
 import { useRouter } from "next/navigation";
+import { loadStripe } from "@stripe/stripe-js";
+import { setCheckPayment } from "@/app/context/slices/checkPaymenteSlice";
 
 const ConsultationForm = ({ item }) => {
+  // const handleChangeRoute = async () => {
+  //   const key = process.env.STRIPE_CLIENT_KEY;
+  //   if (item.status === "active") {
+  //     try {
+  //       const stripe = await loadStripe(
+  //         "pk_test_51OZuj4KquBywS56Uuonf7Q92SQx2WhsqJclNkigWifWImaeL7arJXrg7wPT5AJMJI9em0sbrGPb3NcK8UJhaPHNb00wcxENzVm"
+  //       );
+  //       const res = await handleCheckoutStripe(singleData._id);
+  //       if (res.data) {
+  //         stripe.redirectToCheckout({
+  //           sessionId: res.data.session.id,
+  //         });
+  //         console.log(res.data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
+  const dispatch = useDispatch();
+  const router = useRouter();
+  
   const singleData = item;
   const handleChangeRoute = async () => {
     if (item.status === "active") {
       try {
         const res = await handleCheckoutStripe(singleData._id);
         if (res.data) {
-          window.location.replace(res.data.url);
+          dispatch(
+            setCheckPayment({
+              sessionId: res.data.session.id,
+              formOneId: singleData._id,
+            })
+          );
+          window.location.replace(res.data.session.url);
         }
       } catch (error) {
         console.log(error);
       }
     }
   };
-  const dispatch = useDispatch();
-  const router = useRouter();
+
   const handleDownload = () => {
     dispatch(setCertificateUser(item));
     router.push("/dashboard/patient/download-certificate");
