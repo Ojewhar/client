@@ -9,6 +9,7 @@ import onboardReducer from "../states/onboardSlice/onboardSlice";
 import formOneCertificateReducer from "../states/formOneCertificate/formOneCertificateSlice";
 import formOneReducer from "../slices/fomrOneSlice";
 import downloadCertificateReducer from "../slices/downloadCertificateSlice";
+import checkPaymentReducer from "../slices/checkPaymenteSlice";
 
 const rootReducer = combineReducers({
   userInfo: userReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   onboard: onboardReducer,
   fomrOneInfo: formOneReducer,
   downloadCertificate: downloadCertificateReducer,
+  checkPayment:checkPaymentReducer
 });
 
 export default rootReducer;

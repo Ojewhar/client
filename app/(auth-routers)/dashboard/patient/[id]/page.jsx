@@ -3,25 +3,26 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { handlePaymentSuccess } from "@/app/Services/api-requests/stripe";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const Page = () => {
   const sessionId = useParams().id;
   const router = useSearchParams();
   const paymentStatus = router.get("payment_status");
-  console.log(sessionId, paymentStatus);
+  const payId = useSelector((state) => state.checkPayment);
+  console.log(payId);
   useEffect(() => {
     async function handleSuccess() {
       try {
-        const res = await handlePaymentSuccess(sessionId, paymentStatus);
-        console.log(res);
+        await handlePaymentSuccess(sessionId, paymentStatus);
       } catch (error) {
         console.log(error);
       }
     }
-    if (paymentStatus === "success") {
+    if (paymentStatus === "success" || payId.sessionId) {
       handleSuccess();
     }
-  }, [sessionId, paymentStatus]);
+  }, [sessionId, payId, paymentStatus]);
 
   return (
     <section>

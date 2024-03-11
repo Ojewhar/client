@@ -41,15 +41,15 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
             <form className="px-2 rounded-lg" onSubmit={handleSubmit}>
               {/* part 01 start */}
               <div>
-                <div className="text-center">
+                <div className="text-center mb-4">
                   <h2 className="md:text-2xl text-lg font-semibold works">
-                    Request your Medical Certificate Doctor in just 2 minutes
+                    Request Your Medical Certificate
                   </h2>
-                  <p className="py-3 text-[11px] text-uptext">
+                  {/* <p className="py-3 text-[11px] text-uptext">
                     {" "}
                     If suitable they can provide you with a number of outcomes
                     including medical certificates.
-                  </p>
+                  </p> */}
                 </div>
                 <div>
                   <Image

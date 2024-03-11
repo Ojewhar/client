@@ -117,32 +117,32 @@ const PatientInfoTable = () => {
   }
   return (
     <section>
-      {currentData.length === 0 ? (
-        <LoaderHash />
-      ) : (
-        <div>
-          <div className="flex justify-end items-center gap-5 mb-4"></div>
-          <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
-            <h1 className="font-semibold text-xl mb-2 md:mb-0">
-              Registered Patientes
-            </h1>
-            <div className="mb-2 md:mb-0 flex gap-1 justify-end items-center">
-              <div className=" relative  ">
-                <Input
-                  type="search"
-                  placeholder="Rechercher..."
-                  className="pl-10 pr-4 outline-none"
-                  onChange={(e) => filterData(e.target.value)}
-                />
-                <Image
-                  src={Search}
-                  alt="Search"
-                  className=" absolute top-1/2 left-4 -translate-x-2 -translate-y-1/2"
-                />
-              </div>
-              <FilterTableData />
+      <div>
+        <div className="flex justify-end items-center gap-5 mb-4"></div>
+        <div className="md:flex justify-between rounded-tr-xl rounded-tl-xl items-center bg-white dark:bg-gray-800 dark:text-white p-5">
+          <h1 className="font-semibold text-xl mb-2 md:mb-0">
+            Registered Patientes
+          </h1>
+          <div className="mb-2 md:mb-0 flex gap-1 justify-end items-center">
+            <div className=" relative  ">
+              <Input
+                type="search"
+                placeholder="Rechercher..."
+                className="pl-10 pr-4 outline-none"
+                onChange={(e) => filterData(e.target.value)}
+              />
+              <Image
+                src={Search}
+                alt="Search"
+                className=" absolute top-1/2 left-4 -translate-x-2 -translate-y-1/2"
+              />
             </div>
           </div>
+        </div>
+
+        {currentData.length === 0 ? (
+          <LoaderHash />
+        ) : (
           <div className="pt-5 rounded-br-xl rounded-bl-xl bg-white dark:bg-gray-700 dark:text-gray-400 p-5">
             <div className="relative overflow-x-auto ">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -166,32 +166,16 @@ const PatientInfoTable = () => {
                           src={sort}
                           alt="sort"
                           className=" cursor-pointer"
-                          onClick={() => makeSortArr("title")}
+                          onClick={() => makeSortArr("firstFormEmail")}
                         />
                       </div>
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      <div className="flex gap-1 items-center">
-                        Phone
-                        <Image
-                          src={sort}
-                          alt="sort"
-                          className=" cursor-pointer"
-                          onClick={() => makeSortArr("price")}
-                        />
-                      </div>
+                      <div className="flex gap-1 items-center">Phone</div>
                     </th>
 
                     <th scope="col" className="px-6 py-3">
-                      <div className="flex gap-1 items-center">
-                        Date
-                        <Image
-                          src={sort}
-                          alt="sort"
-                          className=" cursor-pointer"
-                          onClick={() => makeSortArr("stock")}
-                        />
-                      </div>
+                      <div className="flex gap-1 items-center">Date</div>
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Main Cause
@@ -265,16 +249,15 @@ const PatientInfoTable = () => {
               />
             </div>
           </div>
-
-          {modelType === "delete" && (
-            <PatientInfoDelete
-              showModel={showModel}
-              setShowModel={setShowModel}
-              data={selectedItem}
-            />
-          )}
-        </div>
-      )}
+        )}
+        {modelType === "delete" && (
+          <PatientInfoDelete
+            showModel={showModel}
+            setShowModel={setShowModel}
+            data={selectedItem}
+          />
+        )}
+      </div>
     </section>
   );
 };

@@ -1,23 +1,23 @@
-import { FNCButton } from "@/app/components/buttons/FNCButton";
-import { SubmitButton } from "@/app/components/buttons/SubmitButton";
-import Image from "next/image";
-import React, { useState } from "react";
-import SubscriptionImg from "/public/images/medical_certificates-subscription.svg";
-import ExpressImg from "/public/images/medical_certificates-express.svg";
-import EmailImg from "/public/images/medical_certificates-email.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { Toaster } from "react-hot-toast";
-import logo from "@/public/images/logo.png";
+import { FNCButton } from '@/app/components/buttons/FNCButton';
+import { SubmitButton } from '@/app/components/buttons/SubmitButton';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import SubscriptionImg from '/public/images/medical_certificates-subscription.svg';
+import ExpressImg from '/public/images/medical_certificates-express.svg';
+import EmailImg from '/public/images/medical_certificates-email.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
+import logo from '@/public/images/logo.png';
 import {
   addFormOne,
   removeFromOne,
-} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
+} from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
 
 const Step6 = ({ nextStep, prevStep }) => {
   const [isError, setIsError] = useState(false);
-  const [ifOther, setIfOther] = useState("");
+  const [ifOther, setIfOther] = useState('');
   const [switablityForCirtificate, setswitablityForCirtificate] =
-    useState("Cough and cold");
+    useState('Cough and cold');
   const dispatch = useDispatch();
 
   const handleLeaveReasonChange = (e) => {
@@ -29,7 +29,7 @@ const Step6 = ({ nextStep, prevStep }) => {
   console.log(ifOther);
   // Back Button Function
   const backButtonFunc = () => {
-    dispatch(removeFromOne());
+    // dispatch(removeFromOne());
     prevStep();
   };
 
@@ -82,7 +82,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 type="checkbox"
                 value="Cough and cold"
                 checked={
-                  switablityForCirtificate === "Cough and cold" ? true : false
+                  switablityForCirtificate === 'Cough and cold' ? true : false
                 }
                 onChange={handleLeaveReasonChange}
                 name="Cough and cold"
@@ -102,7 +102,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 type="checkbox"
                 value="Headache"
                 name="Headache"
-                checked={switablityForCirtificate === "Headache" ? true : false}
+                checked={switablityForCirtificate === 'Headache' ? true : false}
                 onChange={handleLeaveReasonChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
               />
@@ -121,7 +121,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 value="Mild abdominal pain"
                 name="Mild abdominal pain"
                 checked={
-                  switablityForCirtificate === "Mild abdominal pain"
+                  switablityForCirtificate === 'Mild abdominal pain'
                     ? true
                     : false
                 }
@@ -142,7 +142,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 value="Menses related cramps"
                 name="Menses related cramps"
                 checked={
-                  switablityForCirtificate === "Menses related cramps"
+                  switablityForCirtificate === 'Menses related cramps'
                     ? true
                     : false
                 }
@@ -163,7 +163,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 value="Sprain or strains"
                 name="Sprain or strains"
                 checked={
-                  switablityForCirtificate === "Sprain or strains"
+                  switablityForCirtificate === 'Sprain or strains'
                     ? true
                     : false
                 }
@@ -184,7 +184,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 value="Low back pain"
                 name="Low back pain"
                 checked={
-                  switablityForCirtificate === "Low back pain" ? true : false
+                  switablityForCirtificate === 'Low back pain' ? true : false
                 }
                 onChange={handleLeaveReasonChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
@@ -202,7 +202,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 type="checkbox"
                 value="Diarrhea"
                 name="Diarrhea"
-                checked={switablityForCirtificate === "Diarrhea" ? true : false}
+                checked={switablityForCirtificate === 'Diarrhea' ? true : false}
                 onChange={handleLeaveReasonChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
               />
@@ -220,7 +220,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 type="checkbox"
                 value="Other"
                 name="Other"
-                checked={switablityForCirtificate === "Other" ? true : false}
+                checked={switablityForCirtificate === 'Other' ? true : false}
                 onChange={handleLeaveReasonChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
               />
@@ -231,7 +231,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 Other
               </label>
             </div>
-            {switablityForCirtificate === "Other" && (
+            {switablityForCirtificate === 'Other' && (
               <div>
                 <textarea
                   onChange={(e) => setIfOther(e.target.value)}
@@ -256,8 +256,8 @@ const Step6 = ({ nextStep, prevStep }) => {
               title="Continue"
               className={
                 isError
-                  ? "border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer"
-                  : "border-2 md:mb-2 text-white bg-upurple border-upurple"
+                  ? 'border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer'
+                  : 'border-2 md:mb-2 text-white bg-upurple border-upurple'
               }
               disable={isError ? true : false}
             />

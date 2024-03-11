@@ -42,9 +42,11 @@ const Preview = ({ prevStep, nextStep }) => {
       };
       const response = await createFormOne(formData);
       toast.success(response?.data.message);
-      setTimeout(() => {
-        router.push("/");
-      }, 500);
+      if (response.data) {
+        setTimeout(() => {
+          router.push("/form/thank-you");
+        }, 500);
+      }
       setLoading(false);
     } catch (error) {
       console.log(error);

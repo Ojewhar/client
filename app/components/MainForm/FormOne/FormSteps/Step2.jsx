@@ -1,20 +1,31 @@
 // components/Step1.js
-import { FNCButton } from "@/app/components/buttons/FNCButton";
-import { SubmitButton } from "@/app/components/buttons/SubmitButton";
-import Image from "next/image";
-import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "@/public/images/logo.png";
+import { FNCButton } from '@/app/components/buttons/FNCButton';
+import { SubmitButton } from '@/app/components/buttons/SubmitButton';
+import Image from 'next/image';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import logo from '@/public/images/logo.png';
 import {
   addFormOne,
   removeFromOne,
-} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
+} from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
 
 const Step2 = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
-  const [requireAcertificate, setRequireAcertificate] = useState("Work");
+  const [requireAcertificate, setRequireAcertificate] = useState('Work');
 
   const dispatch = useDispatch();
+
+  // Fetch default value from Redux store
+  const defaultValue = useSelector(
+    (state) => state.formOneCertificate.alldata[2]?.requireAcertificate
+  );
+
+  useEffect(() => {
+    if (defaultValue) {
+      setRequireAcertificate(defaultValue);
+    }
+  }, [defaultValue]);
 
   const handleLeaveReasonChange = (event) => {
     setRequireAcertificate(event.target.value); // Update the selected value when a radio button is clicked
@@ -71,7 +82,7 @@ const Step2 = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
                 id="Work"
                 type="radio"
                 value="Work"
-                checked={requireAcertificate === "Work"}
+                checked={requireAcertificate === 'Work'}
                 onChange={handleLeaveReasonChange}
                 name="Work"
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
@@ -90,7 +101,7 @@ const Step2 = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
                 type="radio"
                 value="Study"
                 name="Study"
-                checked={requireAcertificate === "Study"}
+                checked={requireAcertificate === 'Study'}
                 onChange={handleLeaveReasonChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
               />
@@ -108,7 +119,7 @@ const Step2 = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
                 type="radio"
                 value="Carer’s leave"
                 name="Carer’sleave"
-                checked={requireAcertificate === "Carer’s leave"}
+                checked={requireAcertificate === 'Carer’s leave'}
                 onChange={handleLeaveReasonChange}
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
               />
