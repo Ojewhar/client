@@ -1,14 +1,14 @@
-import { FNCButton } from "@/app/components/buttons/FNCButton";
-import { SubmitButton } from "@/app/components/buttons/SubmitButton";
-import axios from "axios";
-import Image from "next/image";
-import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "/public/images/logo.png";
-import { useRouter } from "next/navigation";
-import { removeFromOne } from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
-import { createFormOne } from "@/app/Services/api-requests/form";
+import { FNCButton } from '@/app/components/buttons/FNCButton';
+import { SubmitButton } from '@/app/components/buttons/SubmitButton';
+import axios from 'axios';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import logo from '/public/images/logo.png';
+import { useRouter } from 'next/navigation';
+import { removeFromOne } from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
+import { createFormOne } from '@/app/Services/api-requests/form';
 
 const Preview = ({ prevStep, nextStep }) => {
   const [isError, setIsError] = useState(false);
@@ -16,6 +16,8 @@ const Preview = ({ prevStep, nextStep }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.formOneCertificate.alldata);
   const router = useRouter();
+
+  console.log(data);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +46,7 @@ const Preview = ({ prevStep, nextStep }) => {
       toast.success(response?.data.message);
       if (response.data) {
         setTimeout(() => {
-          router.push("/form/thank-you");
+          router.push('/form/thank-you');
         }, 500);
       }
       setLoading(false);
@@ -56,7 +58,7 @@ const Preview = ({ prevStep, nextStep }) => {
 
   // Back Button Function
   const backButtonFunc = () => {
-    dispatch(removeFromOne());
+    // dispatch(removeFromOne());
     prevStep();
   };
 
@@ -82,7 +84,7 @@ const Preview = ({ prevStep, nextStep }) => {
             </h2>
             <p className="py-5 text-[12px] text-slate-500">
               Please double check your details below. This will be included on
-              any documents provided by your Partner Doctor and{" "}
+              any documents provided by your Partner Doctor and{' '}
               <strong>cannot be edited after submission.</strong>
             </p>
           </div>
@@ -95,49 +97,49 @@ const Preview = ({ prevStep, nextStep }) => {
               <p className="text-white">
                 {data.length > 5
                   ? `${data[4].firstFormFName} ${data[4].firstFormLName} `
-                  : ""}
+                  : ''}
               </p>
             </div>
 
             <div className="mt-4">
               <h6 className="font-bold text-white">Date of birth</h6>
               <p className="text-white">
-                {data.length > 5 ? data[4].dateOfBirth : ""}
+                {data.length > 5 ? data[4].dateOfBirth : ''}
               </p>
             </div>
 
             <div className="mt-4">
               <h6 className="font-bold text-white">Email address</h6>
               <p className="text-white">
-                {data.length > 5 ? data[4].firstFormEmail : ""}
+                {data.length > 5 ? data[4].firstFormEmail : ''}
               </p>
             </div>
 
             <div className="mt-4">
               <h6 className="font-bold text-white">Mobile number</h6>
               <p className="text-white">
-                {data.length > 5 ? data[4].firstFormMobile : ""}
+                {data.length > 5 ? data[4].firstFormMobile : ''}
               </p>
             </div>
 
             <div className="mt-4">
               <h6 className="font-bold text-white">Type of leave</h6>
               <p className="text-white uppercase">
-                {data.length > 5 ? data[5].switablityForCirtificate : ""}
+                {data.length > 5 ? data[5].switablityForCirtificate : ''}
               </p>
             </div>
 
             <div className="mt-4">
               <h6 className="font-bold text-white">Date from</h6>
               <p className="text-white">
-                {data.length > 5 ? data[3].fromDate : ""}
+                {data.length > 5 ? data[3].fromDate : ''}
               </p>
             </div>
 
             <div className="mt-4">
               <h6 className="font-bold text-white">Date to</h6>
               <p className="text-white">
-                {data.length > 5 ? data[3].toDate : ""}
+                {data.length > 5 ? data[3].toDate : ''}
               </p>
             </div>
           </div>

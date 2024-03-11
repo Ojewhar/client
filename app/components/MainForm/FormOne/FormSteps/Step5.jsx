@@ -28,7 +28,12 @@ const Step5 = ({ nextStep, prevStep }) => {
 
   const thisYear = new Date();
   const dispatch = useDispatch();
-  // Format the date and time
+
+  useEffect(() => {
+    if (dateOfBirth) {
+      setDobError(false);
+    }
+  }, []);
 
   const handleDateOfBirth = (e) => {
     let selectedDate = new Date(e.target.value);
@@ -41,8 +46,6 @@ const Step5 = ({ nextStep, prevStep }) => {
       setDateOfBirth(formattedDate);
     }
   };
-  // const formattedDOBTime =
-  //   dateOfBirth && dateOfBirth?.toISOString().split('T')[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,17 +57,20 @@ const Step5 = ({ nextStep, prevStep }) => {
     }
     dispatch(
       addFormOne({
-        firstFormFName: firstFormFName,
-        firstFormLName: firstFormLName,
-        firstFormEmail: firstFormEmail,
-        firstFormPassword: firstFormPassword,
-        firstFormCPassword: firstFormCPassword,
-        dateOfBirth: dateOfBirth,
-        firstFormMobile: firstFormMobile,
-        firstFormStreet: firstFormStreet,
-        firstFormSuburb: firstFormSuburb,
-        firstFormState: firstFormState,
-        firstFormPost: firstFormPost,
+        index: 4,
+        payload: {
+          firstFormFName: firstFormFName,
+          firstFormLName: firstFormLName,
+          firstFormEmail: firstFormEmail,
+          firstFormPassword: firstFormPassword,
+          firstFormCPassword: firstFormCPassword,
+          dateOfBirth: dateOfBirth,
+          firstFormMobile: firstFormMobile,
+          firstFormStreet: firstFormStreet,
+          firstFormSuburb: firstFormSuburb,
+          firstFormState: firstFormState,
+          firstFormPost: firstFormPost,
+        },
       })
     );
 
@@ -89,7 +95,7 @@ const Step5 = ({ nextStep, prevStep }) => {
       setfirstFormPassword(defaultValue.firstFormPassword);
       setfirstFormCPassword(defaultValue.firstFormCPassword);
       setfirstFormCPassword(defaultValue.firstFormCPassword);
-      setDateOfBirth(new Date(defaultValue.dateOfBirth));
+      setDateOfBirth(defaultValue.dateOfBirth);
       setFirstFormMobile(defaultValue.firstFormMobile);
       setFirstFormStreet(defaultValue.firstFormStreet);
       setFirstFormSuburb(defaultValue.firstFormSuburb);

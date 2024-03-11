@@ -1,7 +1,7 @@
 import { FNCButton } from '@/app/components/buttons/FNCButton';
 import { SubmitButton } from '@/app/components/buttons/SubmitButton';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SubscriptionImg from '/public/images/medical_certificates-subscription.svg';
 import ExpressImg from '/public/images/medical_certificates-express.svg';
 import EmailImg from '/public/images/medical_certificates-email.svg';
@@ -37,12 +37,25 @@ const Step6 = ({ nextStep, prevStep }) => {
   const handleSubmit = () => {
     dispatch(
       addFormOne({
-        switablityForCirtificate: switablityForCirtificate,
-        ifOther: ifOther,
+        index: 5,
+        payload: {
+          switablityForCirtificate: switablityForCirtificate,
+          ifOther: ifOther,
+        },
       })
     );
     nextStep();
   };
+  // Fetch default value from Redux store
+  const defaultValue = useSelector(
+    (state) => state.formOneCertificate.alldata[5]?.switablityForCirtificate
+  );
+
+  useEffect(() => {
+    if (defaultValue) {
+      setswitablityForCirtificate(defaultValue);
+    }
+  }, [defaultValue]);
 
   const data = useSelector((state) => state.formOneCertificate.alldata);
   console.log(data);

@@ -1,14 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const formOneCertificateSlice = createSlice({
-  name: "certificateone",
+  name: 'certificateone',
   initialState: {
     alldata: [],
   },
   reducers: {
     addFormOne: (state, action) => {
-      state.alldata = [...state.alldata, action.payload];
-      // state.alldata.push(action.payload);
+      const { index, payload } = action.payload;
+      if (!state.alldata[index]) {
+        state.alldata.push(payload);
+      } else {
+        state.alldata[index] = payload;
+      }
     },
     removeFromOne: (state) => {
       state.alldata.pop();
