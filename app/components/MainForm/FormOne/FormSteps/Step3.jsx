@@ -111,7 +111,7 @@ const Step3 = ({ nextStep, prevStep }) => {
       toast.error('Please fill up the fields by fullfiling the conditions!');
       return;
     }
-    dispatch(addFormOne({ fromDate, toDate }));
+    dispatch(addFormOne({ index: 3, payload: { fromDate, toDate } }));
     nextStep();
   };
 

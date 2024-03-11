@@ -1,4 +1,4 @@
-// components/Step1.js
+// components/Step2.js
 import { FNCButton } from '@/app/components/buttons/FNCButton';
 import { SubmitButton } from '@/app/components/buttons/SubmitButton';
 import Image from 'next/image';
@@ -33,7 +33,12 @@ const Step2 = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addFormOne({ requireAcertificate: requireAcertificate }));
+    dispatch(
+      addFormOne({
+        index: 2,
+        payload: { requireAcertificate: requireAcertificate },
+      })
+    );
     nextStep();
   };
 
