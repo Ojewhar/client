@@ -148,6 +148,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 Mild abdominal pain
               </label>
             </div>
+
             <div className="flex items-center mb-5">
               <input
                 id="Mensesrelatedcramps"
@@ -169,6 +170,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 Menses related cramps
               </label>
             </div>
+
             <div className="flex items-center mb-5">
               <input
                 id="Sprainorstrains"
@@ -190,6 +192,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 Sprain or strains
               </label>
             </div>
+
             <div className="flex items-center mb-5">
               <input
                 id="Lowbackpain"
@@ -209,6 +212,7 @@ const Step6 = ({ nextStep, prevStep }) => {
                 Low back pain
               </label>
             </div>
+
             <div className="flex items-center mb-5">
               <input
                 id="Diarrhea"
