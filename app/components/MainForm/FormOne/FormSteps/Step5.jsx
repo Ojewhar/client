@@ -1,28 +1,28 @@
-import { FNCButton } from '@/app/components/buttons/FNCButton';
-import { SubmitButton } from '@/app/components/buttons/SubmitButton';
-import Image from 'next/image';
-import toast, { Toaster } from 'react-hot-toast';
-import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import { useDispatch, useSelector } from 'react-redux';
-import logo from '@/public/images/logo.png';
+import { FNCButton } from "@/app/components/buttons/FNCButton";
+import { SubmitButton } from "@/app/components/buttons/SubmitButton";
+import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "@/public/images/logo.png";
 import {
   addFormOne,
   removeFromOne,
-} from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
+} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
 
 const Step5 = ({ nextStep, prevStep }) => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [firstFormEmail, setFirstFormEmail] = useState('');
-  const [firstFormPassword, setfirstFormPassword] = useState('');
-  const [firstFormCPassword, setfirstFormCPassword] = useState('');
-  const [firstFormFName, setFirstFormFName] = useState('');
-  const [firstFormLName, setFirstFormLName] = useState('');
-  const [firstFormMobile, setFirstFormMobile] = useState('');
-  const [firstFormStreet, setFirstFormStreet] = useState('');
-  const [firstFormSuburb, setFirstFormSuburb] = useState('');
-  const [firstFormState, setFirstFormState] = useState('');
-  const [firstFormPost, setFirstFormPost] = useState('');
+  const [firstFormEmail, setFirstFormEmail] = useState("");
+  const [firstFormPassword, setfirstFormPassword] = useState("");
+  const [firstFormCPassword, setfirstFormCPassword] = useState("");
+  const [firstFormFName, setFirstFormFName] = useState("");
+  const [firstFormLName, setFirstFormLName] = useState("");
+  const [firstFormMobile, setFirstFormMobile] = useState("");
+  const [firstFormStreet, setFirstFormStreet] = useState("");
+  const [firstFormSuburb, setFirstFormSuburb] = useState("");
+  const [firstFormState, setFirstFormState] = useState("VIC");
+  const [firstFormPost, setFirstFormPost] = useState("");
   const [isError, setIsError] = useState(false);
   const [dobError, setDobError] = useState(true);
 
@@ -50,10 +50,10 @@ const Step5 = ({ nextStep, prevStep }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dobError) {
-      return toast.error('Please fix date of birth');
+      return toast.error("Please fix date of birth");
     }
     if (firstFormPassword !== firstFormCPassword) {
-      return toast.error('Both password are did not match !');
+      return toast.error("Both password are did not match !");
     }
     dispatch(
       addFormOne({
@@ -244,7 +244,7 @@ const Step5 = ({ nextStep, prevStep }) => {
                 <label htmlFor="State" className="text-uptext font-bold">
                   State
                 </label>
-                <input
+                <select
                   required
                   id="State"
                   type="text"
@@ -252,7 +252,16 @@ const Step5 = ({ nextStep, prevStep }) => {
                   value={firstFormState}
                   onChange={(e) => setFirstFormState(e.target.value)}
                   className="w-full  focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
-                />
+                >
+                  <option value="VIC">VIC</option>
+                  <option value="NSW">NSW</option>
+                  <option value="QLD">QLD</option>
+                  <option value="WA">WA</option>
+                  <option value="TAS">TAS</option>
+                  <option value="SA">SA</option>
+                  <option value="ACT">ACT</option>
+                  <option value="NT">NT</option>
+                </select>
               </div>
 
               <div>
@@ -330,8 +339,8 @@ const Step5 = ({ nextStep, prevStep }) => {
               title="Continue"
               className={
                 isError
-                  ? 'border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer'
-                  : 'border-2 md:mb-2 text-white bg-upurple border-upurple'
+                  ? "border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer"
+                  : "border-2 md:mb-2 text-white bg-upurple border-upurple"
               }
               disable={isError ? true : false}
             />

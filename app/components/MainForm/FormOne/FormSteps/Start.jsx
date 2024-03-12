@@ -12,7 +12,12 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addFormOne({ formName: "Medical Certificate" }));
+    dispatch(
+      addFormOne({
+        index: 0,
+        payload: { formName: "Medical Certificate" },
+      })
+    );
     nextStep();
   };
   // const data = useSelector((state) => state.formOneCertificate.alldata);
