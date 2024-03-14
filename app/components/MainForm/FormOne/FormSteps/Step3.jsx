@@ -1,22 +1,19 @@
 // components/Step3.js
-import { FNCButton } from "@/app/components/buttons/FNCButton";
-import { SubmitButton } from "@/app/components/buttons/SubmitButton";
-import Image from "next/image";
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "@/public/images/logo.png";
+import { FNCButton } from '@/app/components/buttons/FNCButton';
+import { SubmitButton } from '@/app/components/buttons/SubmitButton';
+import Image from 'next/image';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import logo from '@/public/images/logo.png';
 
-import {
-  addFormOne,
-  removeFromOne,
-} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
-import toast from "react-hot-toast";
+import { addFormOne } from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
+import toast from 'react-hot-toast';
 
 const Step3 = ({ nextStep, prevStep }) => {
-  const [fromDate, setFromDate] = useState("");
+  const [fromDate, setFromDate] = useState('');
   const [fromError, setFromError] = useState(false);
-  const [toDate, setToDate] = useState("");
+  const [toDate, setToDate] = useState('');
   const [toError, setToError] = useState(false);
 
   const dispatch = useDispatch();
@@ -36,8 +33,8 @@ const Step3 = ({ nextStep, prevStep }) => {
   useEffect(() => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
     const formattedDate = `${year}-${month}-${day}`;
 
     if (defaultValue) {
@@ -53,13 +50,11 @@ const Step3 = ({ nextStep, prevStep }) => {
   const handleFromChange = (e) => {
     const selectedDate = new Date(e.target.value);
     const today = new Date();
-    const yesterday = new Date(today);
     const tomorrow = new Date(today);
+    const tomorrowNext = new Date(today);
 
-    yesterday.setDate(today.getDate() - 1);
-    tomorrow.setDate(today.getDate() + 2);
-
-    console.log(yesterday, tomorrow);
+    tomorrow.setDate(today.getDate() + 1);
+    tomorrowNext.setDate(today.getDate() + 2);
 
     setFromDate(e.target.value);
 
@@ -67,9 +62,9 @@ const Step3 = ({ nextStep, prevStep }) => {
       selectedDate.toISOString().slice(0, 10) !==
         today.toISOString().slice(0, 10) &&
       selectedDate.toISOString().slice(0, 10) !==
-        yesterday.toISOString().slice(0, 10) &&
+        tomorrow.toISOString().slice(0, 10) &&
       selectedDate.toISOString().slice(0, 10) !==
-        tomorrow.toISOString().slice(0, 10)
+        tomorrowNext.toISOString().slice(0, 10)
     ) {
       setFromError(true);
     } else {
@@ -80,18 +75,22 @@ const Step3 = ({ nextStep, prevStep }) => {
   // 'to' date change handle
   const handleToChange = (e) => {
     const selectedDate = new Date(e.target.value);
-    const fromDateObj = new Date(fromDate);
-    const tomorrow = new Date(fromDateObj);
-    tomorrow.setDate(fromDateObj.getDate() + 1);
-    const threeDaysLater = new Date(fromDateObj);
-    threeDaysLater.setDate(fromDateObj.getDate() + 3);
+    const today = new Date();
+    const tomorrow = new Date(today);
+    const tomorrowNext = new Date(today);
+
+    tomorrow.setDate(today.getDate() + 1);
+    tomorrowNext.setDate(today.getDate() + 2);
 
     setToDate(e.target.value);
 
     if (
       selectedDate.toISOString().slice(0, 10) !==
+        today.toISOString().slice(0, 10) &&
+      selectedDate.toISOString().slice(0, 10) !==
         tomorrow.toISOString().slice(0, 10) &&
-      (selectedDate < fromDateObj || selectedDate > threeDaysLater)
+      selectedDate.toISOString().slice(0, 10) !==
+        tomorrowNext.toISOString().slice(0, 10)
     ) {
       setToError(true);
     } else {
@@ -104,13 +103,13 @@ const Step3 = ({ nextStep, prevStep }) => {
     e.preventDefault();
     if (
       fromDate === null ||
-      fromDate === "" ||
+      fromDate === '' ||
       toDate === null ||
-      toDate === "" ||
+      toDate === '' ||
       fromError ||
       toError
     ) {
-      toast.error("Please fill up the fields by fullfiling the conditions!");
+      toast.error('Please fill up the fields by fullfiling the conditions!');
       return;
     }
     dispatch(addFormOne({ index: 3, payload: { fromDate, toDate } }));
@@ -121,6 +120,8 @@ const Step3 = ({ nextStep, prevStep }) => {
     // dispatch(removeFromOne());
     prevStep();
   };
+
+  const minDate = new Date();
 
   return (
     <section>
@@ -157,10 +158,12 @@ const Step3 = ({ nextStep, prevStep }) => {
               className="w-full p-4 rounded-md text-base border"
               value={fromDate}
               onChange={handleFromChange}
+              min={minDate}
             />
             {fromError && (
               <p className="text-red-500 text-[12px] uppercase px-2 pt-1">
-                PLEASE SELECT A DATE THAT IS YESTERDAY, TODAY, OR TOMORROW.
+                PLEASE SELECT A DATE THAT IS TODAY, TOMORROW OR THE NEXT DAY
+                AFTER TOMORROW.
               </p>
             )}
           </div>
@@ -176,6 +179,7 @@ const Step3 = ({ nextStep, prevStep }) => {
               className="w-full p-4 rounded-md text-base border"
               value={toDate}
               onChange={handleToChange}
+              min={minDate}
             />
             {toError && (
               <p className="text-red-500 text-[12px] uppercase px-2 pt-1">
@@ -197,7 +201,7 @@ const Step3 = ({ nextStep, prevStep }) => {
             <SubmitButton
               title="Continue"
               className={`border-2 md:mb-2 text-white bg-upurple border-upurple ${
-                (!fromError || !toError) && "cursor-pointer"
+                (!fromError || !toError) && 'cursor-pointer'
               }`}
               disable={fromError || toError}
             />
