@@ -1,11 +1,11 @@
-import { FNCButton } from '@/app/components/buttons/FNCButton';
-import { SubmitButton } from '@/app/components/buttons/SubmitButton';
-import Image from 'next/image';
-import toast, { Toaster } from 'react-hot-toast';
-import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import { useDispatch, useSelector } from 'react-redux';
-import logo from '@/public/images/logo.png';
+import { FNCButton } from "@/app/components/buttons/FNCButton";
+import { SubmitButton } from "@/app/components/buttons/SubmitButton";
+import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import React, { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "@/public/images/logo.png";
 import {
   addFormOne,
   removeFromOne,
@@ -15,16 +15,16 @@ const stateData = ['VIC', 'NSW', 'QLD', 'WA', 'TAS', 'SA', 'ACT', 'NT'];
 
 const Step5 = ({ nextStep, prevStep }) => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [firstFormEmail, setFirstFormEmail] = useState('');
-  const [firstFormPassword, setfirstFormPassword] = useState('');
-  const [firstFormCPassword, setfirstFormCPassword] = useState('');
-  const [firstFormFName, setFirstFormFName] = useState('');
-  const [firstFormLName, setFirstFormLName] = useState('');
-  const [firstFormMobile, setFirstFormMobile] = useState('');
-  const [firstFormStreet, setFirstFormStreet] = useState('');
-  const [firstFormSuburb, setFirstFormSuburb] = useState('');
-  const [firstFormState, setFirstFormState] = useState('');
-  const [firstFormPost, setFirstFormPost] = useState('');
+  const [firstFormEmail, setFirstFormEmail] = useState("");
+  const [firstFormPassword, setfirstFormPassword] = useState("");
+  const [firstFormCPassword, setfirstFormCPassword] = useState("");
+  const [firstFormFName, setFirstFormFName] = useState("");
+  const [firstFormLName, setFirstFormLName] = useState("");
+  const [firstFormMobile, setFirstFormMobile] = useState("");
+  const [firstFormStreet, setFirstFormStreet] = useState("");
+  const [firstFormSuburb, setFirstFormSuburb] = useState("");
+  const [firstFormState, setFirstFormState] = useState("VIC");
+  const [firstFormPost, setFirstFormPost] = useState("");
   const [isError, setIsError] = useState(false);
   const [dobError, setDobError] = useState(true);
 
@@ -52,10 +52,10 @@ const Step5 = ({ nextStep, prevStep }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (dobError) {
-      return toast.error('Please fix date of birth');
+      return toast.error("Please fix date of birth");
     }
     if (firstFormPassword !== firstFormCPassword) {
-      return toast.error('Both password are did not match !');
+      return toast.error("Both password are did not match !");
     }
     dispatch(
       addFormOne({
@@ -346,8 +346,8 @@ const Step5 = ({ nextStep, prevStep }) => {
               title="Continue"
               className={
                 isError
-                  ? 'border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer'
-                  : 'border-2 md:mb-2 text-white bg-upurple border-upurple'
+                  ? "border-2 md:mb-2 text-white bg-upurple border-upurple cursor-pointer"
+                  : "border-2 md:mb-2 text-white bg-upurple border-upurple"
               }
               disable={isError ? true : false}
             />

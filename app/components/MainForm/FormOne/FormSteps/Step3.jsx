@@ -1,22 +1,22 @@
 // components/Step3.js
-import { FNCButton } from '@/app/components/buttons/FNCButton';
-import { SubmitButton } from '@/app/components/buttons/SubmitButton';
-import Image from 'next/image';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import logo from '@/public/images/logo.png';
+import { FNCButton } from "@/app/components/buttons/FNCButton";
+import { SubmitButton } from "@/app/components/buttons/SubmitButton";
+import Image from "next/image";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "@/public/images/logo.png";
 
 import {
   addFormOne,
   removeFromOne,
-} from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
+} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
+import toast from "react-hot-toast";
 
 const Step3 = ({ nextStep, prevStep }) => {
-  const [fromDate, setFromDate] = useState('');
+  const [fromDate, setFromDate] = useState("");
   const [fromError, setFromError] = useState(false);
-  const [toDate, setToDate] = useState('');
+  const [toDate, setToDate] = useState("");
   const [toError, setToError] = useState(false);
 
   const dispatch = useDispatch();
@@ -36,8 +36,8 @@ const Step3 = ({ nextStep, prevStep }) => {
   useEffect(() => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
     const formattedDate = `${year}-${month}-${day}`;
 
     if (defaultValue) {
@@ -57,7 +57,9 @@ const Step3 = ({ nextStep, prevStep }) => {
     const tomorrow = new Date(today);
 
     yesterday.setDate(today.getDate() - 1);
-    tomorrow.setDate(today.getDate() + 1);
+    tomorrow.setDate(today.getDate() + 2);
+
+    console.log(yesterday, tomorrow);
 
     setFromDate(e.target.value);
 
@@ -102,13 +104,13 @@ const Step3 = ({ nextStep, prevStep }) => {
     e.preventDefault();
     if (
       fromDate === null ||
-      fromDate === '' ||
+      fromDate === "" ||
       toDate === null ||
-      toDate === '' ||
+      toDate === "" ||
       fromError ||
       toError
     ) {
-      toast.error('Please fill up the fields by fullfiling the conditions!');
+      toast.error("Please fill up the fields by fullfiling the conditions!");
       return;
     }
     dispatch(addFormOne({ index: 3, payload: { fromDate, toDate } }));
@@ -122,7 +124,6 @@ const Step3 = ({ nextStep, prevStep }) => {
 
   return (
     <section>
-      <Toaster />
       <div className="md:w-[661px] mx-auto">
         <div>
           <div>
@@ -133,14 +134,6 @@ const Step3 = ({ nextStep, prevStep }) => {
               src={logo}
               className="mx-auto mt-4"
             />
-          </div>
-          <div className="flex max-w-[400px] my-12 mx-auto justify-center gap-4 items-center">
-            <div className=" w-1/6 h-1 bg-primary rounded"></div>
-            <div className=" w-1/6 h-1 bg-primary rounded"></div>
-            <div className=" w-1/6 h-1 bg-primary rounded"></div>
-            <div className=" w-1/6 h-1 bg-primary rounded"></div>
-            <div className=" w-1/6 h-1 bg-primary rounded"></div>
-            <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
           </div>
         </div>
         <div className="text-center">
@@ -204,7 +197,7 @@ const Step3 = ({ nextStep, prevStep }) => {
             <SubmitButton
               title="Continue"
               className={`border-2 md:mb-2 text-white bg-upurple border-upurple ${
-                (!fromError || !toError) && 'cursor-pointer'
+                (!fromError || !toError) && "cursor-pointer"
               }`}
               disable={fromError || toError}
             />

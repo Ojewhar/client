@@ -12,7 +12,12 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addFormOne({ formName: "Medical Certificate" }));
+    dispatch(
+      addFormOne({
+        index: 0,
+        payload: { formName: "Medical Certificate" },
+      })
+    );
     nextStep();
   };
   // const data = useSelector((state) => state.formOneCertificate.alldata);
@@ -30,14 +35,7 @@ const Start = ({ formData, setFormData, nextStep, currentStep, prevStep }) => {
                 className="mx-auto mt-4"
               />
             </div>
-            <div className="flex max-w-[400px] my-12 mx-auto justify-center gap-4 items-center">
-              <div className=" w-1/6 h-1 bg-orange-500 rounded"></div>
-              <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-              <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-              <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-              <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-              <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-            </div>
+
             <form className="px-2 rounded-lg" onSubmit={handleSubmit}>
               {/* part 01 start */}
               <div>

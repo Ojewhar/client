@@ -35,19 +35,8 @@ const page = () => {
           </section>
           <section id="pricing" className="mb-8">
             <h2 className="text-2xl font-bold">Pricing</h2>
-            <p>Insert pricing information here...</p>
-
             <div className="md:flex justify-start gap-12 mt-3">
-              <PriceCard
-                title="Basic Plan"
-                price="$10/month"
-                features={["Feature 1", "Feature 2", "Feature 3"]}
-              />
-              <PriceCard
-                title="Premium Plan"
-                price="$20/month"
-                features={["Feature 1", "Feature 2", "Feature 3", "Feature 4"]}
-              />
+              <PriceCard title="Need a certificate now" price="$10/month" />
             </div>
           </section>
           <section className="md:flex justify-between items-center gap-20">

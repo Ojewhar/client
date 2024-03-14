@@ -21,7 +21,13 @@ const Step1 = ({ nextStep, currentStep, prevStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addFormOne({ agree: "I agree and wish to proceed" }));
+    dispatch(
+      addFormOne({
+        index: 1,
+        payload: { agree: "I agree and wish to proceed" },
+      })
+    );
+
     nextStep();
   };
 
@@ -45,14 +51,6 @@ const Step1 = ({ nextStep, currentStep, prevStep }) => {
               src={logo}
               className="mx-auto mt-4"
             />
-          </div>
-          <div className="flex max-w-[400px] my-12 mx-auto justify-center gap-4 items-center">
-            <div className=" w-1/6 h-1 bg-orange-500 rounded"></div>
-            <div className=" w-1/6 h-1 bg-orange-500 rounded"></div>
-            <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-            <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-            <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
-            <div className="w-1/6 h-1 bg-gray-400 rounded"></div>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
