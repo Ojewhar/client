@@ -2,8 +2,8 @@ import FormOne from "@/app/components/MainForm/FormOne/FormOne";
 import React from "react";
 
 export const metadata = {
-  title: "Telehealth Consultation Form | updoc ",
-  description: "Telehealth Consultation Form | updoc",
+  title: "Get your medical certificate | CERTNOW ",
+  description: "Get your medical certificate | CERTNOW",
 };
 const page = () => {
   return (

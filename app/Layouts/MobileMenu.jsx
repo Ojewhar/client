@@ -32,14 +32,14 @@ const MobileMenu = () => {
                     Pricing
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     className="hover:text-gray-300"
                     href="/login-passwordless"
                   >
                     Login
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link href="/#contact" className="hover:text-gray-300">
                     Contact

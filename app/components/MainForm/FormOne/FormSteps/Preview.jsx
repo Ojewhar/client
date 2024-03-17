@@ -62,7 +62,6 @@ const Preview = ({ prevStep, nextStep }) => {
     // dispatch(removeFromOne());
     prevStep();
   };
-
   return (
     <section>
       <Toaster />
@@ -126,7 +125,7 @@ const Preview = ({ prevStep, nextStep }) => {
             <div className="mt-4">
               <h6 className="font-bold text-white">Type of leave</h6>
               <p className="text-white uppercase">
-                {data.length > 5 ? data[5].switablityForCirtificate : ""}
+                {data.length > 5 ? data[2].requireAcertificate : ""}
               </p>
             </div>
 

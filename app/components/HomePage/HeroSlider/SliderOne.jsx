@@ -10,19 +10,22 @@ const SliderOne = () => {
           <div className="md:w-1/2  flex justify-start items-center h-full py-10">
             <div className="text-white ">
               <h1 className=" italic  md:text-6xl text-4xl  font-semibold   mb-8">
-                Welcome to Certnow healthcare
+                Welcome to CERTNOW
               </h1>
               <p>
-                Your Swift and Caring Solution for Medical Certification Empower
-                Your Health Journey with Certnow
+                Your swift and caring solution for medical certification empower
+                your health journey with CERTNOW
               </p>
+              <h1 className="my-2 md:text-5xl font-semibold text-3xl  ">
+                Medical certificates from $29
+              </h1>
               <div className="my-8">
                 <div className="">
                   <Link
                     href="/form"
                     className="border items-center font-semibold uppercase text-black justify-center  px-12 py-2 gap-1 border-white rounded-lg  bg-white hover:bg-transparent hover:text-white transition-all"
                   >
-                    Consult Now
+                    START NOW
                   </Link>
                 </div>
               </div>

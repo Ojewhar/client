@@ -12,9 +12,9 @@ const poppins = Space_Grotesk({
   weight: ["300", "400", "500", "600", "700"],
 });
 export const metadata = {
-  title: "Certnow",
+  title: "CERTNOW",
   description:
-    "Bulkee is an application facilitating streamlined connections between resellers and brands, aiming to simplify order management.",
+    "Your Swift and Caring Solution for Medical Certification Empower Your Health Journey with Certnow",
 };
 
 export default function RootLayout({ children }) {

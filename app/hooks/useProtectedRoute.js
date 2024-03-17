@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const useProtectedRoute = (url) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const redirectUrl = url ? url : "/";
+  const redirectUrl = url ? url : "/#pricing";
   useEffect(() => {
     const checkAccessToken = async () => {
       const access_token = Cookies.get("access_token");
