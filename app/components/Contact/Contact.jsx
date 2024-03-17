@@ -7,6 +7,7 @@ import { sendMailUserOnly } from "@/app/Services/api-requests/sendmail";
 import toast from "react-hot-toast";
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,10 +36,10 @@ const Contact = () => {
       };
       const res = await sendMailUserOnly(userData);
       if (res.data) {
-        toast.success("Form sent successfully");
+        toast.success("Contact Form send successfully");
       }
     } catch (error) {
-      toast.error("Failed to send form");
+      toast.error("Failed to send contact form");
       console.error("Error sending contact info:", error);
     } finally {
       setLoading(false);
@@ -53,11 +54,11 @@ const Contact = () => {
           <div className="w-full md:w-1/2 p-6 flex flex-col justify-center items-center border-b md:border-r border-gray-200">
             <h2 className="text-2xl font-semibold mb-4">Contact Info</h2>
             <div className="flex items-center mb-4">
-              <FiPhone className="mr-2 text-blue-500" size={20} />
+              <FiPhone className="mr-2 text-primary" size={20} />
               <span>123-456-7890</span>
             </div>
             <div className="flex items-center">
-              <FiMail className="mr-2 text-blue-500" size={20} />
+              <FiMail className="mr-2 text-primary" size={20} />
               <span>info@example.com</span>
             </div>
           </div>
@@ -117,9 +118,10 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+                disabled={loading ? true : false}
+                className="bg-primary text-white py-2 px-4 rounded-md hover:bg-uorangedark transition duration-300"
               >
-                Submit
+                {loading ? "Submiting.... " : "Submit "}
               </button>
             </form>
           </div>
