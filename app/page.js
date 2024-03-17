@@ -7,9 +7,9 @@ import SliderOne from "./components/HomePage/HeroSlider/SliderOne";
 import HomeLogin from "./components/HomePage/HomeLogin";
 
 export const metadata = {
-  title: "Certnow",
+  title: "CERTNOW",
   description:
-    "Bulkee is an application facilitating streamlined connections between resellers and brands, aiming to simplify order management.",
+    "Your Swift and Caring Solution for Medical Certification Empower Your Health Journey with Certnow",
 };
 const page = () => {
   return (
@@ -21,9 +21,9 @@ const page = () => {
       <main className="py-8">
         <div className="container mx-auto">
           <section className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">About CertNow</h1>
+            <h1 className="text-3xl font-bold mb-2">About CERTNOW</h1>
             <p>
-              Certnow is not just a service; it’s your express ticket to
+              CERTNOW is not just a service; it’s your express ticket to
               hassle-free and caring medical certification.
             </p>
             <p>
@@ -33,18 +33,18 @@ const page = () => {
               the weather.
             </p>
           </section>
-          <section id="pricing" className="mb-8">
+          {/* <section id="pricing" className="mb-8">
             <h2 className="text-2xl font-bold">Pricing</h2>
             <div className="md:flex justify-start gap-12 mt-3">
-              <PriceCard title="Need a certificate now" price="$10/month" />
+              <PriceCard title="Need a certificate now" price="29$" />
             </div>
-          </section>
+          </section> */}
           <section className="md:flex justify-between items-center gap-20">
             <div className="md:w-1/2">
               <HomeLogin />
             </div>
 
-            <div className="md:w-1/2 ">
+            {/* <div className="md:w-1/2 ">
               <h2 className="text-2xl font-bold mt-4 mb-2">
                 Need a certificate?{" "}
               </h2>
@@ -57,7 +57,7 @@ const page = () => {
                   Start Now
                 </Link>
               </div>
-            </div>
+            </div> */}
           </section>
         </div>
       </main>

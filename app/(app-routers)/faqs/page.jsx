@@ -9,9 +9,9 @@ const page = () => {
       <div className="container mx-auto py-10 px-4">
         <h1 className="text-3xl font-bold mb-4">Faqs</h1>
         <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">What is Certnow?</h2>
+          <h2 className="text-xl font-semibold mb-2">What is CERTNOW?</h2>
           <p className="mb-4">
-            Certnow is an online medical consultation service providing medical
+            CERTNOW is an online medical consultation service providing medical
             certificates, saving you the hassle of needing to book an
             appointment with your doctor.
           </p>
@@ -19,7 +19,7 @@ const page = () => {
 
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-2">
-            Why should I choose Certnow?
+            Why should I choose CERTNOW?
           </h2>
           <ul className="list-disc list-inside mb-4">
             <li>Time efficient</li>

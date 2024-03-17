@@ -12,7 +12,7 @@ const Main = () => {
   useEffect(() => {
     function changeRoute() {
       if (isAdmin !== "patient") {
-        router.push("/dashboard");
+        router.push("/dashboard/patient");
       } else {
         setLoading(false);
       }

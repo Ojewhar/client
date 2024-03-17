@@ -9,9 +9,7 @@ import logo from "@/public/images/logo.png";
 import {
   addFormOne,
   removeFromOne,
-} from '@/app/context/states/formOneCertificate/formOneCertificateSlice';
-
-const stateData = ['VIC', 'NSW', 'QLD', 'WA', 'TAS', 'SA', 'ACT', 'NT'];
+} from "@/app/context/states/formOneCertificate/formOneCertificateSlice";
 
 const Step5 = ({ nextStep, prevStep }) => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
@@ -106,6 +104,9 @@ const Step5 = ({ nextStep, prevStep }) => {
     }
   }, [defaultValue]);
 
+  // const data = useSelector((state) => state.formOneCertificate.alldata);
+  // console.log(firstFormPassword, firstFormCPassword);
+
   return (
     <section>
       <Toaster />
@@ -133,10 +134,9 @@ const Step5 = ({ nextStep, prevStep }) => {
           </div>
 
           {/* form data section start */}
+
           <div className="">
-            {/* first and last name */}
             <div className="md:grid grid-cols-2 gap-6 mt-5">
-              {/* first name */}
               <div>
                 <label htmlFor="fname" className="text-uptext font-bold">
                   First name(s)
@@ -152,7 +152,6 @@ const Step5 = ({ nextStep, prevStep }) => {
                 />
               </div>
 
-              {/* last name */}
               <div>
                 <label htmlFor="lname" className="text-uptext font-bold">
                   Last name
@@ -172,12 +171,12 @@ const Step5 = ({ nextStep, prevStep }) => {
               Please enter the name of the person who requires leave.
             </small>
 
-            {/* date of birth */}
-            <div className="mt-6">
+            <div className="mt-6 ">
               <label className="text-uptext font-bold">Date Of Birth</label>
               <br></br>
               <div className="relative w-full block border focus:border-2 outline-none rounded focus:ring-upurple focus:border-upurple  border-slate-300">
                 <input
+                  required
                   type="date"
                   className="w-full p-4 rounded-md text-base border"
                   value={dateOfBirth}
@@ -191,7 +190,6 @@ const Step5 = ({ nextStep, prevStep }) => {
               )}
             </div>
 
-            {/* mobile number */}
             <div className="mt-6">
               <label htmlFor="mobile" className="text-uptext font-bold">
                 Mobile number
@@ -212,7 +210,6 @@ const Step5 = ({ nextStep, prevStep }) => {
               </small>
             </div>
 
-            {/* steet address */}
             <div className="mt-6">
               <label htmlFor="street" className="text-uptext font-bold">
                 Street address
@@ -228,9 +225,7 @@ const Step5 = ({ nextStep, prevStep }) => {
               />
             </div>
 
-            {/* address */}
             <div className="md:grid grid-cols-3 gap-6 md:mt-5">
-              {/* suburb */}
               <div>
                 <label htmlFor="Suburb" className="text-uptext font-bold">
                   Suburb
@@ -246,29 +241,30 @@ const Step5 = ({ nextStep, prevStep }) => {
                 />
               </div>
 
-              {/* state */}
-              <div className="flex flex-col">
-                <label htmlFor="state" className="text-uptext font-bold">
+              <div>
+                <label htmlFor="State" className="text-uptext font-bold">
                   State
                 </label>
                 <select
-                  name="state"
-                  id="state"
-                  className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
+                  required
+                  id="State"
+                  type="text"
+                  name="State"
                   value={firstFormState}
                   onChange={(e) => setFirstFormState(e.target.value)}
+                  className="w-full  focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
                 >
-                  {stateData.map((item, i) => {
-                    return (
-                      <option value={item} key={i}>
-                        {item}
-                      </option>
-                    );
-                  })}
+                  <option value="VIC">VIC</option>
+                  <option value="NSW">NSW</option>
+                  <option value="QLD">QLD</option>
+                  <option value="WA">WA</option>
+                  <option value="TAS">TAS</option>
+                  <option value="SA">SA</option>
+                  <option value="ACT">ACT</option>
+                  <option value="NT">NT</option>
                 </select>
               </div>
 
-              {/* postcode */}
               <div>
                 <label htmlFor="Postalcode" className="text-uptext font-bold">
                   Postalcode
@@ -285,7 +281,6 @@ const Step5 = ({ nextStep, prevStep }) => {
               </div>
             </div>
 
-            {/* email */}
             <div className=" md:mt-3">
               <label htmlFor="email" className="text-uptext font-bold">
                 Email
@@ -300,42 +295,10 @@ const Step5 = ({ nextStep, prevStep }) => {
                 className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded  hover:border-upurple"
               />
             </div>
-
-            {/* password */}
-            <div className="md:grid grid-cols-2 gap-6 mt-3">
-              <div>
-                <label htmlFor="lname" className="text-uptext font-bold">
-                  Password
-                </label>
-                <input
-                  required
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={firstFormPassword}
-                  onChange={(e) => setfirstFormPassword(e.target.value)}
-                  className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="lname" className="text-uptext font-bold">
-                  Confirm Password
-                </label>
-                <input
-                  required
-                  id="cpassword"
-                  type="password"
-                  name="cpassword"
-                  value={firstFormCPassword}
-                  onChange={(e) => setfirstFormCPassword(e.target.value)}
-                  className="w-full focus:ring-upurple focus:border-upurple p-3 border focus:border-2 outline-none border-slate-300 rounded hover:border-upurple"
-                />
-              </div>
-            </div>
           </div>
 
           {/* form data section start */}
+
           <div className="md:grid gap-4 grid-cols-2 mt-6">
             <FNCButton
               onClick={backButtonFunc}

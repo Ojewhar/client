@@ -12,7 +12,7 @@ const HomeLogin = () => {
     try {
       setIsLoading(true);
       const result = await sendLoginLink(passlessMail);
-      toast.success(result.data.message);
+      toast.success("Please check your email to login");
       setIsLoading(false);
       setpasslessMail("");
     } catch (error) {

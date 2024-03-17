@@ -53,7 +53,7 @@ const Page = () => {
       }
       setLoading(false);
     } catch (error) {
-      toast.error(error?.response.data.message);
+      toast.error("Server error");
       console.log(error);
       setLoading(false);
     }
