@@ -5,6 +5,7 @@ import GlobalFooter from "@/app/Layouts/GlobalFooter";
 import GlobalHeader from "@/app/Layouts/GlobalHeader";
 import { sendMailUserOnly } from "@/app/Services/api-requests/sendmail";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -59,7 +60,9 @@ const Contact = () => {
             </div>
             <div className="flex items-center">
               <FiMail className="mr-2 text-primary" size={20} />
-              <span>info@example.com</span>
+              <Link href="mailto:certnowhelpline@gmail.com">
+                certnowhelpline@gmail.com
+              </Link>
             </div>
           </div>
           <div className="w-full md:w-1/2 p-6">
