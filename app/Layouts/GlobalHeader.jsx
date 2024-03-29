@@ -20,16 +20,6 @@ const GlobalHeader = () => {
             <MobileMenu />
           </div>
           <ul className="md:flex space-x-4 hidden">
-            {/* <li>
-              <Link className="hover:text-gray-300" href="/login-passwordless">
-                Login
-              </Link>
-            </li> */}
-            <li>
-              <Link href="/#pricing" className="hover:text-gray-300">
-                Pricing
-              </Link>
-            </li>
             <li>
               <Link href="/contact" className="hover:text-gray-300">
                 Contact
